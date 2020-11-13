@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: '包子君的小站'
 subtitle: ''
 description: ''
 keywords:
 author: 包子君
-language: zh
+language: zh-CN
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: https://sfafreshman.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -106,4 +106,4 @@ deploy:
   type: git
   repo: https://github.com/SFAfreshman/sfafreshman.github.io
   branch: master # 默认使用 master 分支
-  message: 首次部署 # 你可以自定义此次部署更新的说明
+  message: 第二次修改 # 你可以自定义此次部署更新的说明
