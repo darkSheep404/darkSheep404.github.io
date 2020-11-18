@@ -1,4 +1,4 @@
 [submodule "themes/yun"] 
   path = themes/yun 
-  url = git://yun@ce24d36/
+  url = https://github.com/YunYouJun/hexo-theme-yun.git
  
