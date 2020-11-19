@@ -107,3 +107,13 @@ deploy:
   repo: https://github.com/SFAfreshman/sfafreshman.github.io
   branch: master # 默认使用 master 分支
   message: 第二次修改 # 你可以自定义此次部署更新的说明
+
+# 关闭 highlight
+highlight:
+  enable: false
+# 启用 prism
+prismjs:
+  enable: true
+  preprocess: true
+  line_number: false
+  tab_replace: ""
