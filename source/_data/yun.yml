@@ -24,6 +24,7 @@ reward:
   icon: icon-hand-coin-line
   comment: I'm so cute. Please give me money.
   # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
+  #问题：赞赏换成自己的二维码的话图片链接怎么写，直接写相对路径+cdn还是相对路径
   methods:
     - name: 微信支付
       path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg
@@ -61,3 +62,9 @@ menu:
     title: 手册
     path: http://www.ruanyifeng.com/blog/developer/
     icon: icon-settings-line
+##不展示末尾版权信息
+creative_commons:
+  license: by-nc-sa
+  post: false
+  language: deed.zh
+  clipboard: false
