@@ -36,7 +36,6 @@ println("Amit Shekhar")
 
 ------
 
-## 
 
 ## 常量与变量
 
@@ -56,7 +55,7 @@ val name = "Amit Shekhar"
 
 ------
 
-## 
+ 
 
 ## null声明
 
@@ -76,7 +75,7 @@ otherName = null
 
 ------
 
-## 
+
 
 ## 空判断
 
@@ -100,7 +99,7 @@ val length = text?.length
 
 ------
 
-## 
+
 
 ## 字符串拼接
 
@@ -122,7 +121,7 @@ val message = "My name is: $firstName $lastName"
 
 ------
 
-## 
+
 
 ## 换行
 
@@ -146,7 +145,7 @@ val text = """
 
 ------
 
-## 
+ 
 
 ## 三元表达式
 
@@ -166,7 +165,7 @@ val text = if (x > 5)
 
 ------
 
-## 
+ 
 
 ## 操作符
 
@@ -194,7 +193,7 @@ val unsignedRightShift = a ushr 2
 
 ------
 
-## 
+ 
 
 ## 类型判断和转换 (声明式)
 
@@ -216,7 +215,7 @@ var car = object as Car
 
 ------
 
-## 
+ 
 
 ## 类型判断和转换 (隐式)
 
@@ -238,7 +237,7 @@ if (object is Car) {
 
 ------
 
-## 
+ 
 
 ## 多重条件
 
@@ -256,7 +255,7 @@ if (score in 0..300) { }
 
 ------
 
-## 
+ 
 
 ## 更灵活的case语句
 
@@ -304,7 +303,7 @@ var grade = when (score) {
 
 ------
 
-## 
+
 
 ## for循环
 
@@ -346,7 +345,7 @@ for ((key, value) in map) { }
 
 ------
 
-## 
+ 
 
 ## 更方便的集合操作
 
@@ -379,7 +378,7 @@ val keyValue = mapOf(1 to "Amit",
 
 ------
 
-## 
+ 
 
 ## 遍历
 
@@ -418,7 +417,7 @@ cars.filter { it.speed > 100 }
 
 ------
 
-## 
+ 
 
 ## 方法定义
 
@@ -448,7 +447,7 @@ fun doSomething(vararg numbers: Int) {
 
 ------
 
-## 
+ 
 
 ## 带返回值的方法
 
@@ -476,7 +475,7 @@ fun getScore(): Int = score
 
 ------
 
-## 
+ 
 
 ## 无结束符号
 
@@ -504,7 +503,7 @@ fun getScore(value: Int): Int = 2 * value
 
 ------
 
-## 
+ 
 
 ## constructor 构造器
 
@@ -551,7 +550,7 @@ object Utils {
 
 ------
 
-## 
+ 
 
 ## Get Set 构造器
 
@@ -621,7 +620,6 @@ data class Developer(val name: String, val age: Int)
 
 ------
 
-## 
 
 ## 原型扩展
 
