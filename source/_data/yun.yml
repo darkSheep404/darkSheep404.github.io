@@ -33,7 +33,7 @@ beian:
     enable: false
     icp: 粤ICP备2020102011号
 live_time:
-    enable: false
+    enable: true
     prefix: 本博客已萌萌哒地运行
     suffix: (●'◡'●)
     start_time: "2020-08-12T00:00:00"
@@ -42,3 +42,22 @@ social:
     link: mailto:sfa_freshman@qq.com
     icon: icon-mail-line
     color: "#8E71C1"
+    menu:
+  home:
+    path: /
+    icon: icon-home-4-line
+  list:
+    - type: archives
+      path: /archives/
+      icon: icon-archive-line
+    - type: categories
+      path: /categories/
+      icon: icon-folder-2-line
+    - type: tags
+      path: /tags/
+      icon: icon-price-tag-3-line
+  custom:
+    title: 手册
+    path: http://www.ruanyifeng.com/blog/developer/
+    icon: icon-settings-line
+mode: dark

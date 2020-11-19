@@ -108,22 +108,3 @@ deploy:
   branch: master # 默认使用 master 分支
   message: 第二次修改 # 你可以自定义此次部署更新的说明
 
-menu:
-  home:
-    path: /
-    icon: icon-home-4-line
-  list:
-    - type: archives
-      path: /archives/
-      icon: icon-archive-line
-    - type: categories
-      path: /categories/
-      icon: icon-folder-2-line
-    - type: tags
-      path: /tags/
-      icon: icon-price-tag-3-line
-  custom:
-    title: 手册
-    path: http://www.ruanyifeng.com/blog/developer/
-    icon: icon-settings-line
-mode: dark
