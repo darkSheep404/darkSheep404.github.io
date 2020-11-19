@@ -42,7 +42,8 @@ social:
     link: mailto:sfa_freshman@qq.com
     icon: icon-mail-line
     color: "#8E71C1"
-    menu:
+mode: dark
+menu:
   home:
     path: /
     icon: icon-home-4-line
@@ -60,4 +61,3 @@ social:
     title: 手册
     path: http://www.ruanyifeng.com/blog/developer/
     icon: icon-settings-line
-mode: dark
