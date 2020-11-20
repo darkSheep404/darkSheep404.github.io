@@ -33,11 +33,7 @@ reward:
 beian:
     enable: false
     icp: 粤ICP备2020102011号
-live_time:
-    enable: true
-    prefix: 本博客已萌萌哒地运行
-    suffix: (●'◡'●)
-    start_time: "2020-08-12T00:00:00"
+    
 social:
   - name: E-Mail
     link: mailto:sfa_freshman@qq.com
@@ -68,3 +64,9 @@ creative_commons:
   post: false
   language: deed.zh
   clipboard: false
+footer:
+  live_time:
+    enable: false
+    prefix: 本博客已萌萌哒地运行
+    suffix: (●'◡'●)
+    start_time: "2020-10-12T00:00:00"
