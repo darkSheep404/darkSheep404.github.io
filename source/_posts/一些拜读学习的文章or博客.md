@@ -9,7 +9,7 @@ categories:
 
 > 传说中的：去我的收藏夹里吃灰吧
 
-## [Phodal](https://www.phodal.com/)
+### [Phodal](https://www.phodal.com/)
 
 `全栈，前端，开源，物联网`
 
@@ -17,13 +17,13 @@ categories:
 
 #### [Phodal's Idea实战指南](http://ideabook.phodal.com/)
 
-### [GitHub漫游指南](http://github.phodal.com/)
+#### [GitHub漫游指南](http://github.phodal.com/)
 
 
 
-## [阮一峰的开发者手册](http://www.ruanyifeng.com/blog/developer/)
+### [阮一峰的开发者手册](http://www.ruanyifeng.com/blog/developer/)
 
 
 
-## 待整理~~~
+### 待整理~~~
 
