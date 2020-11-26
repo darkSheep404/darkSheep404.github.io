@@ -5,6 +5,7 @@ tags:
   - kotlin
   - java
   - Android
+  - demo
 categories:
   - demo
 ---
