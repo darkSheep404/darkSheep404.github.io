@@ -18,4 +18,9 @@ date: 2020-11-13 21:43:19
 
 <i>联系方式:sfa_freshman@qq.com<i>
 
+>  我
+
 <iframe src="//player.bilibili.com/player.html?aid=329394517&bvid=BV1eA411n7BZ&cid=230480784&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+
+<video src="https://www.bilibili.com/video/BV1eA411n7BZ"></video>
+
