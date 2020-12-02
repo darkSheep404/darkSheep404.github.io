@@ -9,6 +9,7 @@ date: 2020-11-13 21:43:19
 >
 > 网址：darksheep.xyz
 >
+> 由http升级https导致移动端样式丢失，闭站等待修复ing
 
 >
 > 小窝二号：Hexo+GitHubPages搭建
@@ -16,3 +17,5 @@ date: 2020-11-13 21:43:19
 > 网址：sfafreshman.github.io
 
 <i>联系方式:sfa_freshman@qq.com<i>
+
+<iframe src="//player.bilibili.com/player.html?aid=329394517&bvid=BV1eA411n7BZ&cid=230480784&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
