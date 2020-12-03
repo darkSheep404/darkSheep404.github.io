@@ -22,5 +22,7 @@ date: 2020-11-13 21:43:19
 
 <iframe src="//player.bilibili.com/player.html?aid=329394517&bvid=BV1eA411n7BZ&cid=230480784&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
+> video标签视频插入test02
+
 <video src="https://www.bilibili.com/video/BV1eA411n7BZ"></video>
 
