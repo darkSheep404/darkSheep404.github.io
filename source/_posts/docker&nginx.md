@@ -13,6 +13,8 @@ categories:
 
 [阮一峰：Docker入门教程](http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html)
 
+## Docker初窥+nginx
+
 #### 需求：
 
 `软件运行需要环境配置。换一台机器就要重新配置`
@@ -41,7 +43,8 @@ categories:
 
   * **体积小**：只包含用到的组件即可，不需要打包整个操作系统
 
-  ### Docker是什么
+
+### Docker是什么
 
 > **Linux容器的一种封装，提供简单易用的容器使用接口，当前最流行的方案**
 
@@ -132,7 +135,6 @@ $ sudo systemctl start docker
 * 终止和删除容器文件
 * 制作自己的docker容器？镜像
 * 其他有用的命令
-
 
 
 ### 待续
