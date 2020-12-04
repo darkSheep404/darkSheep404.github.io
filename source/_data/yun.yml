@@ -70,3 +70,21 @@ footer:
     prefix: 本博客已萌萌哒地运行
     suffix: (●'◡'●)
     start_time: "2020-10-12T00:00:00"
+
+comment:
+  enable: true
+  icon: icon-chat-3-line
+  tips:
+    - 点击按钮跳转 GitHub Issues 评论。
+    - 若没有本文 Issue，您可以使用 Comment 模版新建。
+  # candidates:
+  #   - valine
+  #   - utterances
+
+# GitHub Issues Link Button
+# https://help.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests
+github_issues:
+  enable: true
+  username: SFAsfreshman
+  repository: sfafreshman.github.io
+  filters: is:issue
