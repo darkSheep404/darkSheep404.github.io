@@ -85,5 +85,5 @@ comment:
   github_issues:
   enable: true
   username: SFAsfreshman
-  repository: sfafreshman.github.io
+  repository: sfasfreshman.github.io
   filters: is:issue
