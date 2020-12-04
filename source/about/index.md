@@ -3,11 +3,21 @@ title: about
 date: 2020-11-13 21:43:19
 ---
 
-欢迎来到包子君的小窝2号~
+#### About Me
+
+> 年满19，不抽烟不喝酒，一个bug改一宿，在失眠与嗜睡之间游荡的废柴大学生
+
+* 爱好：汉服，小说:book:，历史，动漫 ,赖床🛌
+* 喜欢：热干面，胡辣汤，粉条馅小笼包 :rice:
+* 讨厌：肥肉:meat_on_bone:
+* 运动：骑单车瞎逛:bicyclist:(肥宅の运动)，顺便拍点照:camera:
+* 坐标：东莞&信阳:house_with_garden:
+
+欢迎来到包子君的小站
 
 > [小窝一号地址](https://darksheep.xyz)：由服务器+WordPress搭建
 >
-> 网址：darksheep.xyz
+> 网址：darksheep.xyz（域名已经转移到本站）
 >
 > 由http升级https导致移动端样式丢失，闭站等待修复ing
 
