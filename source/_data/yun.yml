@@ -84,6 +84,6 @@ comment:
 # https://help.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests
 github_issues:
   enable: true
-  username: SFAsfreshman
-  repository: sfasfreshman.github.io
+  username: SFAfreshman
+  repository: sfafreshman.github.io
   filters: is:issue
