@@ -80,10 +80,9 @@ comment:
   # candidates:
   #   - valine
   #   - utterances
-
 # GitHub Issues Link Button
 # https://help.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests
-github_issues:
+  github_issues:
   enable: true
   username: SFAsfreshman
   repository: sfafreshman.github.io
