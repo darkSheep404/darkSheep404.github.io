@@ -14,20 +14,20 @@ avatar:
   url: /images/avatar.jpg
   rounded: true
   opacity: 1
-  mickey_mouse: false
+  mickey_mouse: true
   status:
     enable: true
     emoji: 😭
     message: 不想上学
 reward:
-  enable: false
+  enable: true
   icon: icon-hand-coin-line
   comment: I'm so cute. Please give me money.
   # url: https://github.com/YunYouJun/yunyoujun.github.io/issues/96
   #问题：赞赏换成自己的二维码的话图片链接怎么写，直接写相对路径+cdn还是相对路径
   methods:
     - name: 微信支付
-      path: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/donate/wechatpay-qrcode.jpg
+      path: /images/payme02.jpg
       color: "#2DC100"
       icon: icon-wechat-pay-line
 beian:
@@ -39,6 +39,10 @@ social:
     link: mailto:sfa_freshman@qq.com
     icon: icon-mail-line
     color: "#8E71C1"
+    - name: 微信公众号
+    link: /images/qrcode.jpg
+    icon: icon-wechat-2-line
+    color: "#1AAD19"
 mode: dark
 menu:
   home:

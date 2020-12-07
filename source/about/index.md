@@ -7,11 +7,13 @@ date: 2020-11-13 21:43:19
 
 > 年满19，不抽烟不喝酒，一个bug改一宿，在失眠与嗜睡之间游荡的废柴大学生
 
-* 爱好：汉服，小说:book:，历史，动漫 ,赖床🛌
-* 喜欢：热干面，胡辣汤，粉条馅小笼包 :rice:
-* 讨厌：肥肉:meat_on_bone:
-* 运动：骑单车瞎逛:bicyclist:(肥宅の运动)，顺便拍点照:camera:
-* 坐标：东莞&信阳:house_with_garden:
+* 爱好：汉服，小说，历史，动漫 ,赖床🛌
+* 喜欢：热干面，胡辣汤，粉条馅小笼包 
+* 讨厌：肥肉
+* 运动：骑单车瞎逛​​(肥宅の运动)，顺便拍点照
+* 坐标：东莞&信阳:house:
+
+#### 包子的小窝
 
 欢迎来到包子君的小站
 
@@ -32,7 +34,7 @@ date: 2020-11-13 21:43:19
 
 <iframe src="//player.bilibili.com/player.html?aid=329394517&bvid=BV1eA411n7BZ&cid=230480784&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
-> video标签视频插入test02
 
-<video src="https://www.bilibili.com/video/BV1eA411n7BZ"></video>
+
+
 
