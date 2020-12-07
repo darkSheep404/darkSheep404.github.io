@@ -1,6 +1,7 @@
 ---
 title: about
 date: 2020-11-13 21:43:19
+reward: true
 ---
 
 #### About Me
