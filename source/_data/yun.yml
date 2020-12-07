@@ -39,7 +39,7 @@ social:
     link: mailto:sfa_freshman@qq.com
     icon: icon-mail-line
     color: "#8E71C1"
-    - name: 微信公众号
+  - name: 微信
     link: /images/qrcode.jpg
     icon: icon-wechat-2-line
     color: "#1AAD19"
