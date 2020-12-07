@@ -14,7 +14,7 @@ avatar:
   url: /images/avatar.jpg
   rounded: true
   opacity: 1
-  mickey_mouse: true
+  mickey_mouse: false
   status:
     enable: true
     emoji: 😭
