@@ -103,3 +103,8 @@ valine:
   pageSize: 10 # pagination size
   # lang: zh-CN
   enableQQ: true
+codeblock:
+  copy_btn: true
+  prismjs:
+    light: default
+    dark: tomorrow
