@@ -79,8 +79,7 @@ comment:
   enable: true
   icon: icon-chat-3-line
   tips:
-    - 点击按钮跳转 GitHub Issues 评论。
-    - 若没有本文 Issue，您可以使用 Comment 模版新建。
+    - 欢迎来踩一踩
   candidates:
     - valine
   #   - utterances
@@ -95,7 +94,7 @@ valine:
   enable: true
   appId: K8sNkb431hIYsYIJt5cY5ej8-gzGzoHsz
   appKey: lDlaLdG4bnwWtiHoTg9hxfR8
-  placeholder: Just go go # comment box placeholder
+  placeholder: 朕曰 # comment box placeholder
   avatar: # gravatar style
   meta:
     - nick
