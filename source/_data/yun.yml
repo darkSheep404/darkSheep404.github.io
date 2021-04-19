@@ -11,7 +11,7 @@ banner:
     icon: icon-arrow-down-s-line
 avatar:
   enable: true
-  url: /images/avatar.jpg
+  url: /images/logo.png
   rounded: true
   opacity: 1
   mickey_mouse: false
@@ -27,7 +27,7 @@ reward:
   #问题：赞赏换成自己的二维码的话图片链接怎么写，直接写相对路径+cdn还是相对路径
   methods:
     - name: 微信支付
-      path: /images/payme02.jpg
+      path: /images/money.jpg
       color: "#2DC100"
       icon: icon-wechat-pay-line
 beian:
@@ -114,3 +114,4 @@ engine_search:
   # href: "https://www.baidu.com/s?wd=site:"
   # href: "https://www.bing.com/search?q=site:"
   domain: darksheep.xyz
+favicon: /favicon.ico
