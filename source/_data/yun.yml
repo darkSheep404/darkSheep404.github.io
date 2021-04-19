@@ -81,13 +81,26 @@ comment:
   tips:
     - 点击按钮跳转 GitHub Issues 评论。
     - 若没有本文 Issue，您可以使用 Comment 模版新建。
-  # candidates:
-  #   - valine
+  candidates:
+    - valine
   #   - utterances
 # GitHub Issues Link Button
 # https://help.github.com/en/github/searching-for-information-on-github/searching-issues-and-pull-requests
-github_issues:
+# github_issues:
+#   enable: true
+#   username: SFAfreshman
+#   repository: sfafreshman.github.io
+#   filters: is:issue
+valine:
   enable: true
-  username: SFAfreshman
-  repository: sfafreshman.github.io
-  filters: is:issue
+  appId: K8sNkb431hIYsYIJt5cY5ej8-gzGzoHsz
+  appKey: lDlaLdG4bnwWtiHoTg9hxfR8
+  placeholder: Just go go # comment box placeholder
+  avatar: # gravatar style
+  meta:
+    - nick
+    - mail
+    - link
+  pageSize: 10 # pagination size
+  # lang: zh-CN
+  enableQQ: true
