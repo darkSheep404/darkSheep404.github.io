@@ -106,5 +106,5 @@ valine:
 codeblock:
   copy_btn: true
   prismjs:
-    light: default
+    light: tomorrow
     dark: tomorrow
