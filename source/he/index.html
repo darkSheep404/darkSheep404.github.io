@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            text-align: center;
+            /*让div内部文字居中*/
+            background-color: rgb(7, 7, 7);
+            /*border-radius: 20px;*/
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute
+        }
+
+        #words {
+            color: white;
+            font-style: normal;
+            font-weight: bold;
+            font-size: xx-large;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main" onclick="next()">
+        <a id="words">他回来了</a>
+    </div>
+</body>
+<script>
+    var count = 0;
+    var hisWorry = "仗我们是不怕打的，帝国主义要想\'和平演变\'我们这一代人也难\n可下一代、再下一代就不好讲了\n中国人讲\'君子之泽，五世而斩\' \n英国人说\'爵位不传三代\' \n 到我们的第三代、第四代人身上，情形又会是个什么样子啊\n我不想哪一天，在中国的大地上再出现人剥削人的现象\n再出现资本家、企业主、雇工、妓女和吸食鸦片烟\n 如果那样，许多烈士的血就白流了……\n"
+    var heBack = "在绿皮火车上,一个操着湖南口音的老人\n 同隔壁的农民工亲切交谈着\n 时不时记下一些新潮的词汇\n 诸如\"996\" \"人民富豪\"  "
+    var toTeen = "他叫你们去读书\n他说你们是太阳\n他说年轻人有希望\n他说你们就是他\n你们却往地上一躺\n说想他，要等他回来"
+    items = [heBack, hisWorry, toTeen, "人民万岁"]
+    function next() {
+        document.getElementById("words").innerText = items[count];
+        count = count + 1;
+        if (count >= items.length) {
+            count = 0;
+        }
+    }
+</script>
+
+</html>
