@@ -116,3 +116,4 @@ deploy:
   branch: master # 默认使用 master 分支
   message: 第二次修改 # 你可以自定义此次部署更新的说明
 
+skip_render: he\**
