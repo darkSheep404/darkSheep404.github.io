@@ -1,7 +1,7 @@
 ---
 title: MES初探
 date: 2021-07-03 20:21:08
-tags:MES
+tags: MES
 categories:
   - MES
 ---
