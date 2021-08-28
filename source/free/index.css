@@ -1,0 +1,35 @@
+body{
+    background-color: #f1f3f2;
+    width: 100%;
+    padding: 0;
+    margin: 0
+}
+.bg_white{
+    background-color: #ffffff;
+}
+.avatar_holder{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #ffffff;
+}
+
+.note_item{
+    color: #8f9092;
+    height: 30px;
+    padding-left: 10px;
+}
+.note_content{
+    text-align: center;
+    color: #8f9092;
+    font-size: medium;
+}
+.banner_item{
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: small;
+}
+.notes{
+    padding-top: 15px;
+}
