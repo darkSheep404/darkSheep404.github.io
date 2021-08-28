@@ -15,11 +15,11 @@ body{
 }
 
 .note_item{
-    background-color: #e4e9fc;
+    background-color: #eff4f7;
     color: #8f9092;
-    height: 30px;
+    height: 40px;
     padding-left: 10px;
-    line-height: 30px;
+    line-height: 40px;
 }
 .note_content{
     text-align: center;
