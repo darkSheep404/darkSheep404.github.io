@@ -19,12 +19,12 @@ layout: false
         <span>当前部门: 中医药学院</span>
     </div>
     <div class="banner_item bg_white">
-        <img src="文档.png">
+        <img src="文本.png">
         <span>校园通行码</span>
     </div>
     <div class="note_item">头像</div>
-    <div class="avatar_holder" style="border-radius: 5px;">
-        <img src="avatar.jpg" height="150px" width="120px" />
+    <div class="avatar_holder">
+        <img src="avatar.jpg" height="150px" width="120px" style="border-radius: 5px;" />
     </div>
     <div class="note_item">入校信息</div>
     <div class="note_content bg_white">
@@ -36,9 +36,10 @@ layout: false
     window.onload = function () {
 
         //定时器每秒调用一次fnDate()
-        setInterval(function () {
-            fnDate();
-        }, 1000);
+        // setInterval(function () {
+        //     fnDate();
+        // }, 1000);
+        fnDate();
     }
 
     //js 获取当前时间
