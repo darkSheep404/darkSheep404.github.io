@@ -1,0 +1,38 @@
+body{
+    background-color: #f1f3f2;
+    width: 100%;
+    padding: 0;
+    margin: 0
+}
+.bg_white{
+    background-color: #ffffff;
+}
+.avatar_holder{
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #ffffff;
+}
+
+.note_item{
+    background-color: #eff4f7;
+    color: #8f9092;
+    height: 40px;
+    padding-left: 10px;
+    line-height: 40px;
+}
+.note_content{
+    text-align: center;
+    color: #8f9092;
+    font-size: medium;
+    padding-bottom: 20px;
+}
+.banner_item{
+    font-weight: bold;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: small;
+}
+.notes{
+    padding-top: 15px;
+}
