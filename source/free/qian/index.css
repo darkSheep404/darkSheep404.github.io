@@ -9,8 +9,8 @@ body{
 }
 .avatar_holder{
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 40px;
     background-color: #ffffff;
 }
 
@@ -31,7 +31,7 @@ body{
     font-weight: bold;
     padding: 10px;
     margin-bottom: 10px;
-    font-size: small;
+    /* font-size: small; */
 }
 .notes{
     padding-top: 15px;
