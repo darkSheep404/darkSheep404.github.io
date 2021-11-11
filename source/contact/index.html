@@ -9,7 +9,7 @@ layout: false
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>他回来了</title>
+    <title>合约</title>
     <style>
         body {
             font: normal 100% Helvetica, Arial, sans-serif;
@@ -46,21 +46,22 @@ layout: false
 
 <body>
     <div class="main" onclick="next()">
-        <a id="words">他回来了</a>
+        <a id="words">西瓜子与南瓜子的合约</a>
     </div>
 </body>
 <script>
     var count = 0;
-    var hisWorry01 = "试恋人:小溪\t 年龄:20\t 性别:女\n 试恋人:包子\t 年龄:20\t 性别:男\n"
-    var hisWorry02 = "到我们的第三代、第四代人身上\n情形又会是个什么样子啊\n中国人讲\'君子之泽，五世而斩\' \n英国人说\'爵位不传三代\' \n "
-    var hisWorry03 = "我不想哪一天\n在中国的大地上再出现人剥削人的现象\n再出现资本家、企业主、雇工、妓女和吸食鸦片烟\n 如果那样\n许多烈士的血就白流了…\n"
-    var heBack = "在绿皮火车上\n一个操着湖南口音的老人\n 同隔壁的农民工亲切交谈着\n 时不时记下一些新潮的词汇\n 诸如\"996\" \"人民富豪\"  "
-    var toTeen = "他叫你们去读书\n他说你们是太阳\n他说年轻人有希望\n他说你们就是他\n你们却往地上一躺\n说想他，要等他回来"
+    var heBack = "试恋人:小溪\t 年龄:20\t 性别:女\n && \n 试恋人:包子\t 年龄:20\t 性别:男\n "
+    var hisWorry01 = "一行话\n 一行话\n 一行话\n 一行话\n"
+    var hisWorry02 = "二行话\n 二行话\n 二行话\n 二行话\n"
+    var hisWorry03 = "三行话\n 三行话\n 三行话\n 三行话\n"
+
+    var toTeen = "四行话\n 四行话\n 四行话\n 四行话\n"
     items = [heBack, hisWorry01, hisWorry02, hisWorry03, toTeen, "人民万岁"]
     var myImg = new Image();
     myImg.src = "he.jpg"
-    myImg.setAttribute("height", "100%");
-    myImg.setAttribute("width", "100%");
+    //myImg.setAttribute("height", "100%");
+    myImg.setAttribute("width", "80%");
     //myImg.height = "100%"
     document.getElementsByClassName("main")[0].appendChild(myImg)
     document.getElementsByClassName("main")[0].setAttribute("backgroundColor", "white")
