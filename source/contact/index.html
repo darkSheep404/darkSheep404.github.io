@@ -46,20 +46,20 @@ layout: false
 
 <body>
     <div class="main" onclick="next()">
-        <a id="words">西瓜子与南瓜子的合约</a>
+        <a id="words">南瓜子与西瓜子的合约</a>
     </div>
 </body>
 <script>
     var count = 0;
-    var heBack = "试恋人:小溪\t 年龄:20\t 性别:女\n && \n 试恋人:包子\t 年龄:20\t 性别:男\n "
-    var hisWorry01 = "一行话\n 一行话\n 一行话\n 一行话\n"
-    var hisWorry02 = "二行话\n 二行话\n 二行话\n 二行话\n"
-    var hisWorry03 = "三行话\n 三行话\n 三行话\n 三行话\n"
+    var contactTitle = "试恋人:小溪\t 年龄:20\t 性别:女\n && \n 试恋人:包子\t 年龄:20\t 性别:男\n "
+    var promise01 = "互道早安与晚安\n 分享每一天的天空\n"
+    var promise02 = "将遇见的小确幸\n 分享成双倍的开心\n"
+    var promise03 = "将遇到的烦恼\n 尽可能的倾诉\n"
 
-    var toTeen = "四行话\n 四行话\n 四行话\n 四行话\n"
-    items = [heBack, hisWorry01, hisWorry02, hisWorry03, toTeen]
+    var contactEnd = "生效:2021年11月11日\n 到期:2021年11月13日\n"
+    items = [contactTitle, promise01, promise02, promise03, contactEnd]
     var myImg = new Image();
-    myImg.src = "he.jpg"
+    myImg.src = "he.png"
     //myImg.setAttribute("height", "100%");
     myImg.setAttribute("width", "80%");
     //myImg.height = "100%"
@@ -83,7 +83,7 @@ layout: false
             document.getElementById("words").innerText = '';
             $("img").show();
             //重置count==0;
-            $(".main").css("background-color", "white")
+            $(".main").css("background-color", "black")
             count = 0;
         }
     }
