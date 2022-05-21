@@ -6,13 +6,19 @@ tags:
   - vue
 categories:
   - 前端
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 ### 井字棋
 
 `使用vue`
 
-#### [本站预览链接](https://sfafreshman.github.io/game01/)
+#### [本站预览链接](https://darksheep.xyz/game01/)
 #### GitHub单网页预览链接
 
 > 待补充
@@ -25,7 +31,7 @@ categories:
 
 ### 一个旋转的太极
 
-#### [本站预览链接](https://sfafreshman.github.io/taiji/)
+#### [本站预览链接](https://darksheep.xyz/taiji/)
 
 `使用html css`
 

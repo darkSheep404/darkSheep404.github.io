@@ -8,6 +8,12 @@ tags:
   - demo
 categories:
   - demo
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 [TOC]

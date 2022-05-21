@@ -43,7 +43,7 @@ social:
     link: /images/qrcode.jpg
     icon: icon-wechat-2-line
     color: "#1AAD19"
-mode: dark
+mode: auto
 menu:
   home:
     path: /
@@ -60,7 +60,7 @@ menu:
       icon: icon-price-tag-3-line
   custom:
     title: 拜读
-    path: https://sfafreshman.github.io/categories/%E5%88%86%E4%BA%AB/
+    path: https://darksheep404/categories/%E5%88%86%E4%BA%AB/
     icon: icon-settings-line
 ##不展示末尾版权信息
 creative_commons:

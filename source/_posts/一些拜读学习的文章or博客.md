@@ -5,6 +5,12 @@ tags:
   - 分享
 categories:
   - 分享
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 > 传说中的：去我的收藏夹里吃灰吧

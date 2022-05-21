@@ -5,6 +5,12 @@ tags:
   - 拜读
 categories:
   - 分享
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 [转载：MVC，MVP 和 MVVM 的图示](http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html)

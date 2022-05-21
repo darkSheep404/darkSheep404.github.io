@@ -6,6 +6,12 @@ tags:
   - java
 categories:
   - 分享
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 

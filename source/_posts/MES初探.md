@@ -2,8 +2,15 @@
 title: MES初探
 date: 2021-07-03 20:21:08
 tags: MES
+hide: true
 categories:
   - MES
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 ## MES是什么

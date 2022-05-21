@@ -5,6 +5,12 @@ tags:
   - java
 categories:
   - 笔记
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 JUC

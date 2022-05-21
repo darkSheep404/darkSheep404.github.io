@@ -5,6 +5,12 @@ tags:
   - 拜读
 categories:
   - 分享
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 > 本学期第十四周：

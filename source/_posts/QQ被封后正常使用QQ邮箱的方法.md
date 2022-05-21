@@ -6,6 +6,12 @@ tags:
   - 环境配置
 categories:
   - 分享
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 ## 分享：QQ被封后还能正常使用QQ邮箱的方法

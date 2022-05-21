@@ -1,6 +1,12 @@
 ---
 title: about
 date: 2020-11-13 21:43:19
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true
 reward: true
 ---
 
@@ -27,9 +33,9 @@ reward: true
 >
 > 小窝二号：Hexo+GitHubPages搭建
 >
-> 网址：sfafreshman.github.io
+> 网址：darksheep404.github.io
 
-<i>联系方式:sfa_freshman@qq.com<i>
+<i>联系方式:darksheep404@gmail.com<i>
 
 >  我
 

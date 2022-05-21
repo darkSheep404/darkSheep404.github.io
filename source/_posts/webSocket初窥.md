@@ -5,6 +5,12 @@ tags:
   - 拜读
 categories:
   - 分享
+post_meta:
+  item_text: false
+  created_at: true
+  updated_at: true
+  categories: true
+  tags: true  
 ---
 
 > [WebSocket](http://websocket.org/) 是一种网络通信协议，很多高级功能都需要它

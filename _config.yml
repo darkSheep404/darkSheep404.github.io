@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: '包子君的小站'
+title: '达可杨的小站'
 subtitle: ''
 description: ''
 keywords:
-author: 包子君
+author: darksheep
 language: zh-CN
 timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: https://sfafreshman.github.io
+url: https://darksheep404.github.io
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -112,7 +112,7 @@ theme: yun
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://github.com/SFAfreshman/sfafreshman.github.io
+  repo: https://github.com/darksheep404/darksheep404.github.io
   branch: master # 默认使用 master 分支
   message: 第二次修改 # 你可以自定义此次部署更新的说明
 
