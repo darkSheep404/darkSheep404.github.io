@@ -8,6 +8,15 @@
       <% var title=page.title; if (is_archive()){ title=__('archive_a'); if (is_month()){ title +=': ' + page.year + '/'
         + page.month; } else if (is_year()){ title +=': ' + page.year; } } else if (is_category()){ title=__('category')
         + ': ' + page.category; } else if (is_tag()){ title=__('tag') + ': ' + page.tag; } %>
+        <script>
+          var _hmt = _hmt || [];
+          (function () {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ba4b7018d1344ceaaafc62a6c9461bfc";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+          })();
+        </script>
         <title>
           <% if (title){ %>
             <%= title %> | <% } %>
