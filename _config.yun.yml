@@ -31,7 +31,7 @@ reward:
       color: "#2DC100"
       icon: icon-wechat-pay-line
 beian:
-    enable: false
+    enable: true
     icp: 粤ICP备2020102011号
     
 social:
