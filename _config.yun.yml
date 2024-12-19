@@ -71,7 +71,7 @@ creative_commons:
 footer:
   live_time:
     enable: true
-    prefix: 本博客已萌萌哒地运行
+    prefix: 本博客已默默哒地运行
     suffix: (●'◡'●)
     start_time: "2020-10-12T00:00:00"
 
