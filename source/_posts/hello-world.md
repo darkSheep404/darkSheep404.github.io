@@ -1,10 +1,17 @@
 ---
 title: Hello World
 date: 2020-11-01 15:20:18
- post_meta:
+tags:
+  - 生活
+  - 折腾
+categories:
+  - 环境配置
+post_meta:
   item_text: false
   created_at: true
   updated_at: true
+  categories: true
+  tags: true 
 ---
 > 满堂花醉三千客，一剑霜寒十四州
 
