@@ -17,6 +17,7 @@ jobs:
           node-version: "16.x"
       
       - name: Install Dependencies
+        run: npm config set strict-ssl false
         run: npm i
       - run: npm run build
 
