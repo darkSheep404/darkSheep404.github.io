@@ -15,12 +15,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: "16.x"
-      
-      - name: Install Dependencies
-        run: npm config set strict-ssl false
-        run: npm i
-      - run: npm run build
 
+      - name: Disable Strict SSL
+        run: npm config set strict-ssl false
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
