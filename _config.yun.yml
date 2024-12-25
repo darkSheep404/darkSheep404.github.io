@@ -85,7 +85,6 @@ footer:
     logo: https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png
     prefix: 本网站由
     suffix: 提供 CDN 加速
-  custom_text: 春困秋乏夏打盹，冬眠
 
 comment:
   enable: true
