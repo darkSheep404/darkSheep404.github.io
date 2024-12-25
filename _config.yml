@@ -107,9 +107,6 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: yun
-#baidu
-baidu_analytics: true
-
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment

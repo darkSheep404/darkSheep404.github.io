@@ -1,42 +1,36 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8">
-  <script src="https://hm.baidu.com/hm.js?ba4b7018d1344ceaaafc62a6c9461bfc"></script>
-  <script>
-    var _hmt = _hmt || [];
-    (function () {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?ba4b7018d1344ceaaafc62a6c9461bfc";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
+  <%- partial('google-analytics') %>
+  <%
+  var title = page.title;
 
-  <%- partial("baidu_analytics") %>
-    <%- partial('google-analytics') %>
-      <% var title=page.title; if (is_archive()){ title=__('archive_a'); if (is_month()){ title +=': ' + page.year + '/'
-        + page.month; } else if (is_year()){ title +=': ' + page.year; } } else if (is_category()){ title=__('category')
-        + ': ' + page.category; } else if (is_tag()){ title=__('tag') + ': ' + page.tag; } %>
-        <span>1433223</span>
-        <title>
-          <% if (title){ %>
-            <%= title %> | <% } %>
-                <%= config.title %>
-        </title>
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-        <%- open_graph({twitter_id: theme.twitter, google_plus: theme.google_plus, fb_admins: theme.fb_admins,
-          fb_app_id: theme.fb_app_id}) %>
-          <% if (theme.rss){ %>
-            <link rel="alternate" href="<%= url_for(theme.rss) %>" title="<%= config.title %>"
-              type="application/atom+xml">
-            <% } %>
-              <% if (theme.favicon){ %>
-                <link rel="icon" href="<%- theme.favicon %>">
-                <% } %>
-                  <% if (config.highlight.enable){ %>
-                    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-                    <% } %>
-                      <%- css('css/style') %>
+  if (is_archive()){
+    title = __('archive_a');
+
+    if (is_month()){
+      title += ': ' + page.year + '/' + page.month;
+    } else if (is_year()){
+      title += ': ' + page.year;
+    }
+  } else if (is_category()){
+    title = __('category') + ': ' + page.category;
+  } else if (is_tag()){
+    title = __('tag') + ': ' + page.tag;
+  }
+  %>
+  <title><% if (title){ %><%= title %> | <% } %><%= config.title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <%- open_graph({twitter_id: theme.twitter, google_plus: theme.google_plus, fb_admins: theme.fb_admins, fb_app_id: theme.fb_app_id}) %>
+  <% if (theme.rss){ %>
+    <link rel="alternate" href="<%= url_for(theme.rss) %>" title="<%= config.title %>" type="application/atom+xml">
+  <% } %>
+  <% if (theme.favicon){ %>
+    <link rel="icon" href="<%- theme.favicon %>">
+  <% } %>
+  <% if (config.highlight.enable){ %>
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <% } %>
+  <%- css('css/style') %>
 </head>
