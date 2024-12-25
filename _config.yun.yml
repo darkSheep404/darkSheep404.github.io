@@ -30,10 +30,7 @@ reward:
       path: /images/money.jpg
       color: "#2DC100"
       icon: icon-wechat-pay-line
-beian:
-    enable: true
-    icp: 粤ICP备2020102011号
-    
+
 social:
   - name: E-Mail
     link: mailto:sfa_freshman@qq.com
@@ -68,12 +65,19 @@ creative_commons:
   post: false
   language: deed.zh
   clipboard: false
+head:
+  js:
+    - /head/js/clarity.js
 footer:
   live_time:
     enable: true
     prefix: 本博客已默默哒地运行
     suffix: (●'◡'●)
     start_time: "2020-10-12T00:00:00"
+  beian:
+    enable: true
+    icp: 粤ICP备2020102011号
+  custom_text: 春困秋乏夏打盹，冬眠
 
 comment:
   enable: true
