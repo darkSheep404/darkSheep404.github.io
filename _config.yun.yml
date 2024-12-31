@@ -36,10 +36,14 @@ social:
     link: mailto:sfa_freshman@qq.com
     icon: icon-mail-line
     color: "#8E71C1"
-  - name: 微信
-    link: /images/qrcode.jpg
-    icon: icon-wechat-2-line
-    color: "#1AAD19"
+  - name: RSS
+    link: /atom.xml # config.feed.path
+    icon: icon-rss-line
+    color: orange
+  - name: Travelling
+    link: https://www.travellings.cn/go.html
+    icon: icon-train-line
+    color: "#FFD700"
 mode: auto
 menu:
   home:
@@ -68,16 +72,18 @@ creative_commons:
 head:
   js:
     - /head/js/clarity.js
+  css:
+    fontawesome: https://cdn.bootcdn.net/ajax/libs/font-awesome/6.6.0/js/all.min.js
 footer:
   live_time:
     enable: true
-    prefix: 本博客已默默哒地运行
+    prefix: 本站已在地球上苟活了
     suffix: (●'◡'●)
     start_time: "2020-10-12T00:00:00"
   beian:
     enable: true
     icp: 粤ICP备2020102011号
-  footer:
+  custom_text: <a  href="https://www.travellings.cn/go.html" title="Travelling" >Travelling<svg class="icon" aria-hidden="true"><use xlink:href="#icon-train-line"></use></svg></a>
   support:
     enable: true
     title: 又拍云
