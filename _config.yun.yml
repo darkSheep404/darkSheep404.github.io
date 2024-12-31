@@ -83,7 +83,7 @@ footer:
   beian:
     enable: true
     icp: 粤ICP备2020102011号
-  custom_text: <a  href="https://www.travellings.cn/go.html" title="Travelling" >Travelling<svg class="icon" aria-hidden="true"><use xlink:href="#icon-train-line"></use></svg></a>
+  custom_text: <a  href="https://www.travellings.cn/go.html" title="Travelling"  style="font-size:20px">Travelling<svg class="icon" aria-hidden="true" style="width:20px;height:20px"><use xlink:href="#icon-train-line"></use></svg></a>
   support:
     enable: true
     title: 又拍云
