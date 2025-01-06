@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="darksheep"><meta name="copyright" content="darksheep"><meta name="generator" content="Hexo 6.2.0"><meta name="theme" content="hexo-theme-yun"><title>随机获取猫图APP | 战忽包子的小站</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"darksheep404.github.io","root":"/","title":"包子君的小站","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="战忽包子的小站" type="application/atom+xml"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.6.0/js/all.min.js"><script src="/head/js/clarity.js"></script><script src="/head/js/util.js" defer></script><meta name="description" content="[TOC] 安卓实验:随机猫图  安卓实验:随机猫图:cat:   使用技术：RecycleView，Glide  运行效果 遇到的待解决的问题 Oncreate里给RecycleView传入了八张初始图片，并没有按照瀑布流显示，而是排成了一行 运行点击函数后才刷新成设置的两列   拟解决办法，oncreate里面调用一个刷新函数，函数执行notifyItemChanged(0)  实际未改变，希">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机获取猫图APP">
+<meta property="og:url" content="https://darksheep404.github.io/2020/11/24/%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E7%8C%AB%E5%9B%BEAPP/index.html">
+<meta property="og:site_name" content="战忽包子的小站">
+<meta property="og:description" content="[TOC] 安卓实验:随机猫图  安卓实验:随机猫图:cat:   使用技术：RecycleView，Glide  运行效果 遇到的待解决的问题 Oncreate里给RecycleView传入了八张初始图片，并没有按照瀑布流显示，而是排成了一行 运行点击函数后才刷新成设置的两列   拟解决办法，oncreate里面调用一个刷新函数，函数执行notifyItemChanged(0)  实际未改变，希">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124224447.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124200225.png">
+<meta property="article:published_time" content="2020-11-24T15:20:18.000Z">
+<meta property="article:modified_time" content="2025-01-06T15:58:48.094Z">
+<meta property="article:author" content="darksheep">
+<meta property="article:tag" content="demo">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="kotlin">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124224447.jpg"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="darksheep"><img width="96" loading="lazy" src="/images/logo.png" alt="darksheep"><span class="site-author-status" title="不想上学">😭</span></a><div class="site-author-name"><a href="/about/">darksheep</a></div><a class="site-name" href="/about/site.html">战忽包子的小站</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">22</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">15</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://darksheep404/categories/%E5%88%86%E4%BA%AB/" title="拜读"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:sfa_freshman@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.travellings.cn/go.html" title="Travelling" target="_blank" style="color:#FFD700"><span class="icon iconify" data-icon="ri:train-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%8D%93%E5%AE%9E%E9%AA%8C-%E9%9A%8F%E6%9C%BA%E7%8C%AB%E5%9B%BE"><span class="toc-number">1.</span> <span class="toc-text">安卓实验:随机猫图</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C"><span class="toc-number">1.1.</span> <span class="toc-text">运行效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E5%BE%85%E8%A7%A3%E5%86%B3%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">1.2.</span> <span class="toc-text">遇到的待解决的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-0%E7%89%88%E6%9C%AC%EF%BC%9A%E8%A7%A3%E6%9E%90%E8%8E%B7%E5%8F%96xml%E4%B8%AD%E7%9A%84%E4%B8%80%E4%B8%AA%E5%9B%BE%E7%89%87%E9%93%BE%E6%8E%A5%E5%B9%B6%E6%98%BE%E7%A4%BA"><span class="toc-number">2.</span> <span class="toc-text">1.0版本：解析获取xml中的一个图片链接并显示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="toc-number">2.1.</span> <span class="toc-text">效果图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E4%BB%A3%E7%A0%81"><span class="toc-number">2.2.</span> <span class="toc-text">业务代码</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="https://darksheep404.github.io/2020/11/24/%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E7%8C%AB%E5%9B%BEAPP/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="darksheep"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="战忽包子的小站"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">随机获取猫图APP</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2020-11-24 15:20:18" itemprop="dateCreated datePublished" datetime="2020-11-24T15:20:18+00:00">2020-11-24</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2025-01-06 15:58:48" itemprop="dateModified" datetime="2025-01-06T15:58:48+00:00">2025-01-06</time></div><div class="post-classify"><span class="post-category"> <span class="post-meta-item-icon" style="margin-right:3px;"><span class="icon iconify" data-icon="ri:folder-line"></span></span><span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category-item" href="/categories/demo/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">demo</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag-item" href="/tags/demo/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">demo</span></a><a class="tag-item" href="/tags/java/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">java</span></a><a class="tag-item" href="/tags/kotlin/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">kotlin</span></a><a class="tag-item" href="/tags/Android/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="tag-name">Android</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><p>[TOC]</p>
+<h2 id="安卓实验-随机猫图"><a href="#安卓实验-随机猫图" class="headerlink" title="安卓实验:随机猫图"></a>安卓实验:随机猫图</h2><blockquote>
+<p> 安卓实验:随机猫图:cat:</p>
+</blockquote>
+<blockquote>
+<p>使用技术：RecycleView，Glide</p>
+</blockquote>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124224447.jpg" alt="Screenshot_20201124_224008_com.demo.catws" loading="lazy"></p>
+<h3 id="遇到的待解决的问题"><a href="#遇到的待解决的问题" class="headerlink" title="遇到的待解决的问题"></a>遇到的待解决的问题</h3><ul>
+<li><code>Oncreate</code>里给<code>RecycleView</code>传入了八张初始图片，并没有按照瀑布流显示，而是排成了一行</li>
+<li>运行点击函数后才刷新成设置的两列</li>
+</ul>
+<blockquote>
+<p>拟解决办法，<code>oncreate</code>里面调用一个刷新函数，函数执行<code>notifyItemChanged(0)</code></p>
+<blockquote>
+<p>实际未改变，希望他刷新布局</p>
+</blockquote>
+<blockquote>
+<p>并未解决</p>
+</blockquote>
+</blockquote>
+<p>* </p>
+<ul>
+<li><p>点击函数里清空了items数组，使用<code>myadaper?.notifyItemInserted(data.size-1)</code>报错越界</p>
+<p>使用<code>myadaper!!.notifyItemChanged(data.size-1)</code>反而正常</p>
+</li>
+</ul>
+<blockquote>
+<p>猜想，data数组更新了，但是适配器里的数组还保存着原来的数据，调用notify函数后才更新对应位置数据</p>
+<p>所以主页面里按data空数组下标从0开始插入反而报错</p>
+<p><strong>报错日志</strong></p>
+<pre class="language-verilog" data-language="verilog"><code class="language-verilog">D<span class="token operator">/</span>TAG<span class="token operator">----></span>得到第 <span class="token number">0</span> 个图片链接：<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token comment">//24.media.tumblr.com/tumblr_lwwcqwNiyE1r0mbi6o1_500.jpg</span>
+D<span class="token operator">/</span>TAG<span class="token operator">----></span>得到第 <span class="token number">1</span> 个图片链接：<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token comment">//25.media.tumblr.com/tumblr_ll6oplOJki1qjahcpo1_500.jpg</span>
+D<span class="token operator">/</span>TAG<span class="token operator">----></span>重置了第<span class="token number">1</span> 个图片链接：<span class="token punctuation">:</span>             
+D<span class="token operator">/</span>TAG<span class="token operator">----></span>得到第 <span class="token number">2</span> 个图片链接：<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token comment">//25.media.tumblr.com/tumblr_ln7y9yW8hn1qdth8zo1_500.jpg</span>
+D<span class="token operator">/</span>TAG<span class="token operator">----></span>得到第 <span class="token number">3</span> 个图片链接：<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/PfA5hN4En.jpg</span>
+D<span class="token operator">/</span>TAG<span class="token operator">----></span>得到第 <span class="token number">4</span> 个图片链接：<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/1XJ21J4EE.jpg</span>
+D<span class="token operator">/</span>TAG<span class="token operator">----></span>得到第 <span class="token number">5</span> 个图片链接：<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/2B3n7I5u2.jpg</span>
+D<span class="token operator">/</span>TAG<span class="token operator">----></span>得到第 <span class="token number">6</span> 个图片链接：<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/0xvhPJ8pd.jpg</span>
+D<span class="token operator">/</span>TAG<span class="token operator">----></span>得到第 <span class="token number">7</span> 个图片链接：<span class="token punctuation">:</span> https<span class="token punctuation">:</span><span class="token comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/6X-Rt4SAF.jpg</span>
+D<span class="token operator">/</span>Tag<span class="token punctuation">:</span> 执行了onBindViewHolder
+D<span class="token operator">/</span>AndroidRuntime<span class="token punctuation">:</span> Shutting down VM
+E<span class="token operator">/</span>AndroidRuntime<span class="token punctuation">:</span> FATAL EXCEPTION<span class="token punctuation">:</span> main
+ Process<span class="token punctuation">:</span> com<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>catws<span class="token punctuation">,</span> PID<span class="token punctuation">:</span> <span class="token number">23693</span>
+ java<span class="token punctuation">.</span>lang<span class="token punctuation">.</span>IndexOutOfBoundsException<span class="token punctuation">:</span> Inconsistency detected<span class="token punctuation">.</span> Invalid item position <span class="token function">7</span><span class="token punctuation">(</span>offset<span class="token punctuation">:</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">.</span>state<span class="token punctuation">:</span><span class="token number">8</span> androidx<span class="token punctuation">.</span>recyclerview<span class="token punctuation">.</span>widget<span class="token punctuation">.</span>RecyclerView<span class="token operator">&#123;</span>abf2cbd VFED<span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>ID <span class="token operator">-</span><span class="token number">72</span><span class="token punctuation">,</span><span class="token number">246</span><span class="token operator">-</span><span class="token number">1155</span><span class="token punctuation">,</span><span class="token number">2109</span> <span class="token number">#7</span>f070083 app<span class="token punctuation">:</span>id<span class="token operator">/</span>recycle<span class="token operator">&#125;</span><span class="token punctuation">,</span> </code></pre>
+
+
+</blockquote>
+<ul>
+<li><p>初始化的<code>recycleview</code>传入空数组时也不能使用<code>insert</code>，但可以使用<code>changed</code> 。。。。</p>
+</li>
+<li><p><strong>报错日志</strong></p>
+</li>
+<li><p>&#96;&#96;&#96;verilog<br>D&#x2F;TAG—-&gt;得到第 0 个图片链接：: <a target="_blank" rel="noopener" href="https://26.media.tumblr.com/Jjkybd3nSk1fx3xfOQ0aNJawo1_500.jpg">https://26.media.tumblr.com/Jjkybd3nSk1fx3xfOQ0aNJawo1_500.jpg</a><br>D&#x2F;TAG—-&gt;得到第 1 个图片链接：: <a target="_blank" rel="noopener" href="https://24.media.tumblr.com/tumblr_lhc5exQHCr1qgnva2o1_500.jpg">https://24.media.tumblr.com/tumblr_lhc5exQHCr1qgnva2o1_500.jpg</a><br>D&#x2F;TAG—-&gt;得到第 2 个图片链接：: <a target="_blank" rel="noopener" href="https://24.media.tumblr.com/tumblr_m46gb0Yz7l1qz6rxuo1_500.jpg">https://24.media.tumblr.com/tumblr_m46gb0Yz7l1qz6rxuo1_500.jpg</a><br>D&#x2F;TAG—-&gt;得到第 3 个图片链接：: <a target="_blank" rel="noopener" href="https://24.media.tumblr.com/tumblr_m5b8gqPHsN1qenqklo1_r1_500.jpg">https://24.media.tumblr.com/tumblr_m5b8gqPHsN1qenqklo1_r1_500.jpg</a><br>D&#x2F;TAG—-&gt;重置了第3 个图片链接：:<br>D&#x2F;TAG—-&gt;得到第 4 个图片链接：: <a target="_blank" rel="noopener" href="https://25.media.tumblr.com/tumblr_m6fj9jObek1qzbxjgo1_500.jpg">https://25.media.tumblr.com/tumblr_m6fj9jObek1qzbxjgo1_500.jpg</a><br>D&#x2F;TAG—-&gt;重置了第4 个图片链接：:<br><a target="_blank" rel="noopener" href="https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/L6X35YZPT.jpg">https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/L6X35YZPT.jpg</a><br>D&#x2F;TAG—-&gt;得到第 5 个图片链接：: <a target="_blank" rel="noopener" href="https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/L6X35YZPT.jpg">https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/L6X35YZPT.jpg</a><br>D&#x2F;TAG—-&gt;得到第 6 个图片链接：: <a target="_blank" rel="noopener" href="https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/R1_Oy4xPh.jpg">https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/R1_Oy4xPh.jpg</a><br>D&#x2F;TAG—-&gt;得到第 7 个图片链接：: <a target="_blank" rel="noopener" href="https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/HJiePCL8P.jpg">https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/HJiePCL8P.jpg</a><br>D&#x2F;TAG: 进入onCreateViewHolder<br>D&#x2F;Tag: 执行了onBindViewHolder<br>&#x2F;&#x2F;…<br>D&#x2F;Tag: 执行了onBindViewHolder<br>I&#x2F;chatty: uid&#x3D;10161(com.demo.catws) identical 3 lines<br>D&#x2F;AndroidRuntime: Shutting down VM<br>E&#x2F;AndroidRuntime: FATAL EXCEPTION: main<br>Process: com.demo.catws, PID: 24957<br>java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionMyViewHolder{a05aa7 position&#x3D;12 id&#x3D;-1, oldPos&#x3D;7, pLpos:7 scrap [attachedScrap] tmpDetached not recyclable(1) no parent} androidx.recyclerview.widget.RecyclerView{3aa67fe VFED….. ……ID -72,246-1155,2109 #7f070083 app:id&#x2F;recycle}</p>
+<pre class="language-none"><code class="language-none">
+  
+
+### 业务代码
+
+&#96;&#96;&#96;kotlin
+&#x2F;&#x2F;点击函数
+fun lookCat(v:View) &#x3D; Thread()&#123;
+        val url&#x3D;&quot;https:&#x2F;&#x2F;api.thecatapi.com&#x2F;api&#x2F;images&#x2F;get?format&#x3D;xml&amp;size&#x3D;med&amp;results_per_page&#x3D;8&quot;
+        val xmlString &#x3D; URL(url).readText()
+        val parserFactory: XmlPullParserFactory &#x3D; XmlPullParserFactory.newInstance()
+        val parser: XmlPullParser &#x3D; parserFactory.newPullParser()
+        parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, true)
+        parser.setInput(StringReader(xmlString))
+        var tag: String?
+        var text &#x3D; &quot;&quot;
+        var count&#x3D;0;
+        data.clear()
+        var bytes:ByteArray?
+        var event &#x3D; parser.eventType
+        while (event !&#x3D; XmlPullParser.END_DOCUMENT) &#123;
+            tag &#x3D; parser.name
+            when (event) &#123;
+                XmlPullParser.TEXT -&gt; text &#x3D; parser.text
+                XmlPullParser.END_TAG -&gt; when (tag) &#123;
+                    &quot;url&quot; -&gt; &#123;
+                        &#x2F;&#x2F;把资源链接压进资源数组
+                        &#x2F;&#x2F;图片链接处理
+                        Log.d(&quot;TAG----&gt;得到第 $&#123;data.size-1&#125; 个图片链接：&quot;, text)
+                        data.add(text)
+                        runOnUiThread &#123;
+
+                            &#x2F;&#x2F;myadaper?.notifyItemInserted(data.size-1)
+                            &#x2F;&#x2F;此处使用提醒插入报错，使用提醒改变正常运行
+                            myadaper!!.notifyItemChanged(data.size-1)
+                            Log.d(&quot;TAG----&gt;重置了 $&#123;data.size-1&#125; 个图片链接：&quot;, text)
+
+                        &#125;
+                        
+                      
+                    &#125;
+                &#125;
+            &#125;
+            event &#x3D; parser.next()
+        &#125;
+
+    &#125;.start()</code></pre></li>
+</ul>
+<pre class="language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token comment">//图片加载函数</span>
+<span class="token keyword">override</span> <span class="token keyword">fun</span> <span class="token function">onBindViewHolder</span><span class="token punctuation">(</span>holder<span class="token operator">:</span> MyViewHolder<span class="token punctuation">,</span> position<span class="token operator">:</span> Int<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"Tag"</span></span><span class="token punctuation">,</span><span class="token string-literal singleline"><span class="token string">"执行了onBindViewHolder"</span></span><span class="token punctuation">)</span>
+
+        Glide<span class="token punctuation">.</span><span class="token function">with</span><span class="token punctuation">(</span>myContext<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>items<span class="token punctuation">[</span>position<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">into</span><span class="token punctuation">(</span>holder<span class="token punctuation">.</span>imgview<span class="token punctuation">)</span>
+
+    <span class="token punctuation">&#125;</span></code></pre>
+
+<h2 id="1-0版本：解析获取xml中的一个图片链接并显示"><a href="#1-0版本：解析获取xml中的一个图片链接并显示" class="headerlink" title="1.0版本：解析获取xml中的一个图片链接并显示"></a>1.0版本：解析获取xml中的一个图片链接并显示</h2><blockquote>
+<p>未使用布局及图片加载库</p>
+</blockquote>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><blockquote>
+<ul>
+<li>点击按钮向api接口请求xml数据</li>
+<li>当从xml中解析出图片url地址后左上角显示：<br>“猫猫图正在向您走来”</li>
+<li>从url中读取到图片后，显示图片链接与图片到ui上</li>
+</ul>
+</blockquote>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124200225.png" alt="image-20201124200224064" loading="lazy"></p>
+<h3 id="业务代码"><a href="#业务代码" class="headerlink" title="业务代码"></a>业务代码</h3><pre class="language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">fun</span> <span class="token function">lookCat</span><span class="token punctuation">(</span>v<span class="token operator">:</span>View<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token function">Thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token keyword">val</span> url<span class="token operator">=</span><span class="token string-literal singleline"><span class="token string">"https://api.thecatapi.com/api/images/get?format=xml&amp;size=med&amp;results_per_page=1"</span></span>
+        <span class="token comment">//读取并格式化返回的xml</span>
+        <span class="token keyword">val</span> xmlString <span class="token operator">=</span> <span class="token function">URL</span><span class="token punctuation">(</span>url<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">readText</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">val</span> parserFactory<span class="token operator">:</span> XmlPullParserFactory <span class="token operator">=</span> XmlPullParserFactory<span class="token punctuation">.</span><span class="token function">newInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">val</span> parser<span class="token operator">:</span> XmlPullParser <span class="token operator">=</span> parserFactory<span class="token punctuation">.</span><span class="token function">newPullParser</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        parser<span class="token punctuation">.</span><span class="token function">setFeature</span><span class="token punctuation">(</span>XmlPullParser<span class="token punctuation">.</span>FEATURE_PROCESS_NAMESPACES<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+        parser<span class="token punctuation">.</span><span class="token function">setInput</span><span class="token punctuation">(</span><span class="token function">StringReader</span><span class="token punctuation">(</span>xmlString<span class="token punctuation">)</span><span class="token punctuation">)</span>
+        <span class="token keyword">var</span> tag<span class="token operator">:</span> String<span class="token operator">?</span>
+        <span class="token keyword">var</span> text <span class="token operator">=</span> <span class="token string-literal singleline"><span class="token string">""</span></span>
+        <span class="token keyword">var</span> bytes<span class="token operator">:</span>ByteArray<span class="token operator">?</span>
+        <span class="token keyword">var</span> event <span class="token operator">=</span> parser<span class="token punctuation">.</span>eventType
+        <span class="token comment">//开始解析返回的xml，此处因为url设置results_per_page=1，返回的xml只有一个image节点即一张图片链接</span>
+        <span class="token keyword">while</span> <span class="token punctuation">(</span>event <span class="token operator">!=</span> XmlPullParser<span class="token punctuation">.</span>END_DOCUMENT<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+            tag <span class="token operator">=</span> parser<span class="token punctuation">.</span>name
+            <span class="token keyword">when</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                XmlPullParser<span class="token punctuation">.</span>TEXT <span class="token operator">-></span> text <span class="token operator">=</span> parser<span class="token punctuation">.</span>text
+                XmlPullParser<span class="token punctuation">.</span>END_TAG <span class="token operator">-></span> <span class="token keyword">when</span> <span class="token punctuation">(</span>tag<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+                    <span class="token string-literal singleline"><span class="token string">"url"</span></span> <span class="token operator">-></span><span class="token punctuation">&#123;</span>
+                        imgurl<span class="token operator">=</span>text
+                        timestart<span class="token punctuation">.</span>text<span class="token operator">=</span><span class="token string-literal singleline"><span class="token string">"猫猫图正在向您走来！"</span></span>
+                        Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"MainActivity"</span></span><span class="token punctuation">,</span><span class="token string-literal singleline"><span class="token string">"已读取完图片链接 :</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$</span><span class="token expression">imgurl</span></span><span class="token string"> "</span></span><span class="token punctuation">)</span>
+                        bytes <span class="token operator">=</span> <span class="token function">URL</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">readBytes</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                        runOnUiThread<span class="token punctuation">&#123;</span>
+                            <span class="token keyword">var</span> text<span class="token operator">=</span>imgurl
+                            textView<span class="token punctuation">.</span>text<span class="token operator">=</span>text
+                            <span class="token keyword">val</span> bitmap <span class="token operator">=</span> BitmapFactory<span class="token punctuation">.</span><span class="token function">decodeByteArray</span><span class="token punctuation">(</span>bytes<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> bytes<span class="token punctuation">.</span>size<span class="token punctuation">)</span>
+                            Log<span class="token punctuation">.</span><span class="token function">d</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"MainActivity"</span></span><span class="token punctuation">,</span><span class="token string-literal singleline"><span class="token string">"已读取完图片字节文件：</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$</span><span class="token expression">imgurl</span></span><span class="token string"> "</span></span><span class="token punctuation">)</span>
+                            imageView<span class="token punctuation">.</span><span class="token function">setImageBitmap</span><span class="token punctuation">(</span>bitmap<span class="token punctuation">)</span>
+                            imageView<span class="token punctuation">.</span>isEnabled <span class="token operator">=</span> <span class="token boolean">true</span>
+                        <span class="token punctuation">&#125;</span>
+                    <span class="token punctuation">&#125;</span>
+                <span class="token punctuation">&#125;</span>
+            <span class="token punctuation">&#125;</span>
+            <span class="token comment">//当xml存在多个子节点时生效，此时暂不生效</span>
+            event <span class="token operator">=</span> parser<span class="token punctuation">.</span><span class="token function">next</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">&#125;</span>
+
+    <span class="token punctuation">&#125;</span><span class="token punctuation">.</span><span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token punctuation">&#125;</span></code></pre></div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/money.jpg"><img loading="lazy" src="/images/money.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2020/11/25/%E4%B8%80%E4%BA%9B%E6%8B%9C%E8%AF%BB%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%87%E7%AB%A0or%E5%8D%9A%E5%AE%A2/" rel="prev" title="文章&amp;博客拜读学习"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">文章&amp;博客拜读学习</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2020/11/19/From%20Java%20To%20Kotlin/" rel="next" title="分享:From Java To Kotlin"><span class="post-nav-text">分享:From Java To Kotlin</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>欢迎来踩一踩</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">粤ICP备2020102011号</a></div><div class="copyright"><span>&copy; 2019 – 2025 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> darksheep</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.2.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>本站已在地球上苟活了</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2020-10-12T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div class="footer-custom-text"><a  target="_blank" rel="noopener" href="https://www.travellings.cn/go.html" title="Travelling"  style="font-size:20px; color:orange">Travelling<svg style ="height:20px;width:20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ri icon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="ri:train-line"><path fill="orange" d="m17.2 20l1.8 1.5v.5H5v-.5L6.8 20H5a2 2 0 0 1-2-2V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v11a2 2 0 0 1-2 2zM7 5a2 2 0 0 0-2 2v11h14V7a2 2 0 0 0-2-2zm5 12a2 2 0 1 1 0-4a2 2 0 0 1 0 4M6 7h12v4H6z"></path></svg></a></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral" target="blank" title="又拍云"><img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" alt="又拍云"></a><span>提供 CDN 加速</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" target="_blank" rel="noopener" href="https://www.google.com/search?q=site:darksheep.xyz" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a></body></html>

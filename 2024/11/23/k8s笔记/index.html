@@ -1,0 +1,164 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="darksheep"><meta name="copyright" content="darksheep"><meta name="generator" content="Hexo 6.2.0"><meta name="theme" content="hexo-theme-yun"><title>k8s笔记 | 战忽包子的小站</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;display=swap" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/star-markdown-css@0.4.1/dist/yun/yun-markdown.min.css"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/prism-theme-vars/base.css"><script src="https://fastly.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>function initScrollReveal() {
+  [".post-card",".markdown-body img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+}
+document.addEventListener("DOMContentLoaded", initScrollReveal);
+document.addEventListener("pjax:success", initScrollReveal);
+</script><link rel="icon" type="image/png" href="/favicon.ico"><link rel="mask-icon" href="/favicon.ico" color="#0078E7"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="preconnect" href="https://fastly.jsdelivr.net/npm/" crossorigin><script id="yun-config">
+    window.Yun = {}
+    window.CONFIG = {"hostname":"darksheep404.github.io","root":"/","title":"包子君的小站","version":"1.10.11","mode":"auto","copycode":true,"page":{"isPost":true},"i18n":{"placeholder":"搜索...","empty":"找不到您查询的内容: ${query}","hits":"找到 ${hits} 条结果","hits_time":"找到 ${hits} 条结果（用时 ${time} 毫秒）"},"anonymous_image":"https://cdn.yunyoujun.cn/img/avatar/none.jpg","say":{"api":"https://el-bot-api.vercel.app/api/words/young"},"fireworks":{"colors":null},"vendors":{"host":"https://fastly.jsdelivr.net/npm/","darken":"https://fastly.jsdelivr.net/npm/darken@1.5.0"}};
+  </script><link rel="stylesheet" href="/css/hexo-theme-yun.css"><script src="/js/hexo-theme-yun.js" type="module"></script><link rel="alternate" href="/atom.xml" title="战忽包子的小站" type="application/atom+xml"><link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.6.0/js/all.min.js"><script src="/head/js/clarity.js"></script><script src="/head/js/util.js" defer></script><meta name="description" content="K8S的对象 离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob一些字段activeDeadlineSeconds，设置 Pod 运行的超时时间。 backoffLimit，设置 Pod 的失败重试次数。 completions，Job 完成需要运行多少个 Pod，默认是 1 个。 parallelism，它与 completions 相关，表示允许并发运行的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s笔记">
+<meta property="og:url" content="https://darksheep404.github.io/2024/11/23/k8s%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="战忽包子的小站">
+<meta property="og:description" content="K8S的对象 离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob一些字段activeDeadlineSeconds，设置 Pod 运行的超时时间。 backoffLimit，设置 Pod 的失败重试次数。 completions，Job 完成需要运行多少个 Pod，默认是 1 个。 parallelism，它与 completions 相关，表示允许并发运行的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213417394.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213437099.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213456098.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213544895.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/b5/cf/b5a7003788cb6f2b1c5c4f6873a8b5cf.jpg?wh=1920x1298">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214214049.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/9b780905a824d2103d4ayyc79267ae28.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/yy352c661ae37dd116dd12c61932b43c.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/0663d692b33c1dee5b08e486d271b69d.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214405793.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214605773.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/c1/1c/c1dee411aa02f4ff2b8caaf0bd627a1c.jpg?wh=1920x1173">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/71/88/71b485401dca6946fe4788fa97e3fd88.png?wh=1268x414">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/1a/0f/1a06987c87f3db948b591883a81bac0f.jpg?wh=4000x2946">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/0f/64/0f74ae3a71a6a661376698e481903d64.jpg?wh=1920x1322">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/e6/55/e6ce31b027ba2a8d94cdc553a2c97255.png?wh=1288x834">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/bb7a911e10c103fb839e01438e184914.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220007395.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220049973.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220049973.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220129212.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221149186.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/64/d9/64fde55dd2eab68f9968ff34218646d9.jpg?wh=1920x1200">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221515092.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221701080.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221605863.png">
+<meta property="article:published_time" content="2024-11-23T15:20:18.000Z">
+<meta property="article:modified_time" content="2025-01-06T15:58:48.093Z">
+<meta property="article:author" content="darksheep">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213417394.png"><script>(function() {
+  if (CONFIG.mode !== 'auto') return
+  const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+  const setting = localStorage.getItem('darken-mode') || 'auto'
+  if (setting === 'dark' || (prefersDark && setting !== 'light'))
+    document.documentElement.classList.toggle('dark', true)
+})()</script></head><body><script src="https://code.iconify.design/2/2.1.1/iconify.min.js"></script><script>// Define global variable
+IconifyProviders = {
+  // Empty prefix: overwrite default API provider configuration
+  '': {
+    // Use custom API first, use Iconify public API as backup
+    resources: [
+        'https://api.iconify.design',
+    ],
+    // Wait for 1 second before switching API hosts
+    rotate: 1000,
+  },
+};</script><script defer src="https://fastly.jsdelivr.net/npm/animejs@latest"></script><script defer src="/js/ui/fireworks.js" type="module"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script src="/js/sidebar.js" type="module"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="文章目录"><span class="icon iconify" data-icon="ri:list-ordered"></span></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="站点概览"><span class="icon iconify" data-icon="ri:passport-line"></span></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="darksheep"><img width="96" loading="lazy" src="/images/logo.png" alt="darksheep"><span class="site-author-status" title="不想上学">😭</span></a><div class="site-author-name"><a href="/about/">darksheep</a></div><a class="site-name" href="/about/site.html">战忽包子的小站</a><sub class="site-subtitle"></sub><div class="site-description"></div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="首页"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:home-4-line"></span></span></a><div class="site-state-item"><a href="/archives/" title="归档"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:archive-line"></span></span><span class="site-state-item-count">22</span></a></div><div class="site-state-item"><a href="/categories/" title="分类"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:folder-2-line"></span></span><span class="site-state-item-count">9</span></a></div><div class="site-state-item"><a href="/tags/" title="标签"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:price-tag-3-line"></span></span><span class="site-state-item-count">15</span></a></div><a class="site-state-item hty-icon-button" target="_blank" rel="noopener" href="https://darksheep404/categories/%E5%88%86%E4%BA%AB/" title="拜读"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:settings-line"></span></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="mailto:sfa_freshman@qq.com" title="E-Mail" target="_blank" style="color:#8E71C1"><span class="icon iconify" data-icon="ri:mail-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><span class="icon iconify" data-icon="ri:rss-line"></span></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://www.travellings.cn/go.html" title="Travelling" target="_blank" style="color:#FFD700"><span class="icon iconify" data-icon="ri:train-line"></span></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><span class="icon iconify" data-icon="ri:genderless-line"></span></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><span class="icon iconify" data-icon="ri:contrast-2-line"></span></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#K8S%E7%9A%84%E5%AF%B9%E8%B1%A1"><span class="toc-number">1.</span> <span class="toc-text">K8S的对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A6%BB%E7%BA%BF%E4%B8%9A%E5%8A%A1-gt-%E4%B8%B4%E6%97%B6%E4%BB%BB%E5%8A%A1-gt-%E5%8F%AA%E8%B7%91%E4%B8%80%E6%AC%A1-job-%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-cronjob"><span class="toc-number">1.1.</span> <span class="toc-text">离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ConfigMap-x2F-Secret-%E6%98%8E%E6%96%87-x2F-%E7%A7%98%E6%96%87%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF"><span class="toc-number">1.2.</span> <span class="toc-text">ConfigMap&#x2F;Secret:明文&#x2F;秘文配置信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deployment-%E7%AE%A1%E7%90%86pod-gt-pod%E7%AE%A1%E7%90%86container"><span class="toc-number">1.3.</span> <span class="toc-text">Deployment:管理pod-&gt;pod管理container</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DaemonSet-spec-%E9%87%8C%E6%B2%A1%E6%9C%89-replicas-%E5%AD%97%E6%AE%B5-%E5%9C%A8%E6%AF%8F%E4%B8%AA%E8%8A%82%E7%82%B9%E4%B8%8A%E5%8F%AA%E5%88%9B%E5%BB%BA%E5%87%BA%E4%B8%80%E4%B8%AA-Pod-%E5%AE%9E%E4%BE%8B"><span class="toc-number">1.3.1.</span> <span class="toc-text">DaemonSet (spec 里没有 replicas 字段)在每个节点上只创建出一个 Pod 实例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#StatefulSet"><span class="toc-number">1.3.2.</span> <span class="toc-text">StatefulSet</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Service%E4%B8%8EIngress"><span class="toc-number">1.4.</span> <span class="toc-text">Service与Ingress</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ingress-%E9%9B%86%E7%BE%A4%E5%86%85%E5%A4%96%E8%BE%B9%E7%95%8C%E4%B8%8A%E7%9A%84%E5%85%A5%E5%8F%A3"><span class="toc-number">1.4.1.</span> <span class="toc-text">ingress:集群内外边界上的入口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E8%80%85%E8%81%94%E7%B3%BB"><span class="toc-number">1.4.2.</span> <span class="toc-text">四者联系</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%A0%E7%A7%8D%E6%9B%B4%E6%96%B0%E7%AD%96%E7%95%A5"><span class="toc-number">2.</span> <span class="toc-text">几种更新策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%9A%E5%8A%A8%E6%9B%B4%E6%96%B0"><span class="toc-number">2.1.</span> <span class="toc-text">滚动更新</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%93%9D%E7%BB%BF%E9%83%A8%E7%BD%B2"><span class="toc-number">2.2.</span> <span class="toc-text">蓝绿部署</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E6%9B%B4%E5%81%A5%E5%BA%B7"><span class="toc-number">3.</span> <span class="toc-text">应用更健康</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#cgroup"><span class="toc-number">3.1.</span> <span class="toc-text">cgroup</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E7%8A%B6%E6%80%81%E6%8E%A2%E9%92%88-Probe"><span class="toc-number">3.2.</span> <span class="toc-text">容器状态探针(Probe)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A2%E6%B5%8B%E6%96%B9%E5%BC%8F"><span class="toc-number">3.2.1.</span> <span class="toc-text">探测方式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#namespace-%E9%80%9A%E8%BF%87%E4%B8%8D%E5%90%8C%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E5%AE%9E%E7%8E%B0%E8%B5%84%E6%BA%90%E9%9A%94%E7%A6%BB"><span class="toc-number">3.3.</span> <span class="toc-text">namespace:通过不同命名空间实现资源隔离</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="hty-card post-block" itemscope itemtype="https://schema.org/Article" style="--smc-primary:#0078E7;"><link itemprop="mainEntityOfPage" href="https://darksheep404.github.io/2024/11/23/k8s%E7%AC%94%E8%AE%B0/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="darksheep"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="战忽包子的小站"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">k8s笔记</h1><div class="post-meta"><div class="post-time"><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-line"></span></span> <time title="创建时间：2024-11-23 15:20:18" itemprop="dateCreated datePublished" datetime="2024-11-23T15:20:18+00:00">2024-11-23</time><span class="post-meta-divider">-</span><span class="post-meta-item-icon"><span class="icon iconify" data-icon="ri:calendar-2-line"></span></span> <time title="修改时间：2025-01-06 15:58:48" itemprop="dateModified" datetime="2025-01-06T15:58:48+00:00">2025-01-06</time></div><div class="post-classify"></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content markdown-body"><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213417394.png" alt="image-20230521213417394" loading="lazy"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213437099.png" alt="image-20230521213437099" loading="lazy"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213456098.png" alt="image-20230521213456098" loading="lazy"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213544895.png" alt="image-20230521213544895" loading="lazy"></p>
+<h2 id="K8S的对象"><a href="#K8S的对象" class="headerlink" title="K8S的对象"></a>K8S的对象</h2><p><img src="https://static001.geekbang.org/resource/image/b5/cf/b5a7003788cb6f2b1c5c4f6873a8b5cf.jpg?wh=1920x1298" alt="img" loading="lazy"></p>
+<h3 id="离线业务-gt-临时任务-gt-只跑一次-job-定时任务-cronjob"><a href="#离线业务-gt-临时任务-gt-只跑一次-job-定时任务-cronjob" class="headerlink" title="离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob"></a>离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob</h3><p><strong>一些字段</strong><br>activeDeadlineSeconds，设置 Pod 运行的超时时间。</p>
+<p>backoffLimit，设置 Pod 的失败重试次数。</p>
+<p>completions，Job 完成需要运行多少个 Pod，默认是 1 个。</p>
+<p>parallelism，它与 completions 相关，表示允许并发运行的 Pod 数量，避免过多占用资源。</p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214214049.png" alt="image-20230521214214049" loading="lazy"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/9b780905a824d2103d4ayyc79267ae28.jpg" alt="img" loading="lazy"><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/yy352c661ae37dd116dd12c61932b43c.jpg" alt="img" loading="lazy"></p>
+<h3 id="ConfigMap-x2F-Secret-明文-x2F-秘文配置信息"><a href="#ConfigMap-x2F-Secret-明文-x2F-秘文配置信息" class="headerlink" title="ConfigMap&#x2F;Secret:明文&#x2F;秘文配置信息"></a>ConfigMap&#x2F;Secret:明文&#x2F;秘文配置信息</h3><blockquote>
+<p>不是容器 不需要spec字段说明允许规格</p>
+<p>containers”里有一个“env”，它定义了 Pod 里容器能够看到的环境变量</p>
+<p>可以使用了简单的“value”，把环境变量的值写“死”在了 YAML 里</p>
+<p>实际上它还可以使用另一个“valueFrom”字段，从 ConfigMap 或者 Secret 对象里获取值</p>
+<ul>
+<li>name”字段是 API 对象的名字，而不是 Key-Value 的名字。</li>
+</ul>
+</blockquote>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/0663d692b33c1dee5b08e486d271b69d.jpg" alt="img" loading="lazy"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214405793.png" alt="image-20230521214405793" loading="lazy"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214605773.png" alt="image-20230521214605773" loading="lazy"></p>
+<h3 id="Deployment-管理pod-gt-pod管理container"><a href="#Deployment-管理pod-gt-pod管理container" class="headerlink" title="Deployment:管理pod-&gt;pod管理container"></a>Deployment:管理pod-&gt;pod管理container</h3><h4 id="DaemonSet-spec-里没有-replicas-字段-在每个节点上只创建出一个-Pod-实例"><a href="#DaemonSet-spec-里没有-replicas-字段-在每个节点上只创建出一个-Pod-实例" class="headerlink" title="DaemonSet (spec 里没有 replicas 字段)在每个节点上只创建出一个 Pod 实例"></a>DaemonSet (spec 里没有 replicas 字段)在<strong>每个节点上只创建出一个 Pod 实例</strong></h4><p>如需要运行在master node上 需要设置污点&#x2F;容忍度 taint:tolerations</p>
+<p><img src="https://static001.geekbang.org/resource/image/c1/1c/c1dee411aa02f4ff2b8caaf0bd627a1c.jpg?wh=1920x1173" alt="img" loading="lazy"></p>
+<h4 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h4><blockquote>
+<p>专门部署“有状态应用”的 API 对象 StatefulSet，它与 Deployment 非常相似，区别是由它管理的 Pod 会有固定的名字、启动顺序和网络标识，这些特性对于在集群里实施有主从、主备等关系的应用非常重要</p>
+</blockquote>
+<p><img src="https://static001.geekbang.org/resource/image/71/88/71b485401dca6946fe4788fa97e3fd88.png?wh=1268x414" alt="img" loading="lazy"></p>
+<blockquote>
+<p><strong>所管理的 Pod 不再是随机的名字了，而是有了顺序编号</strong>，从 0 开始分别被命名为 redis-sts-0、redis-sts-1，Kubernetes 也会按照这个顺序依次创建（0 号比 1 号的 AGE 要长一点），这就解决了“<strong>有状态应用”的第一个问题：启动顺序</strong></p>
+<p><strong>有了这个唯一的名字，应用就可以自行决定依赖关系了</strong>，</p>
+<p>如以 Redis 为例子里，就可以让先启动的 0 号 Pod 是主实例，后启动的 1 号 Pod 是从实例</p>
+<p>Service 自己会有一个域名，格式是“对象名. 名字空间”，当我们把 Service 对象应用于 StatefulSet 的时候,<strong>会为 Pod 再多创建出一个新的域名，格式是“Pod 名. 服务名. 名字空间.svc.cluster.local”&#x2F;“Pod 名. 服务名</strong>”</p>
+<p>外部的客户端只要知道了 StatefulSet 对象，就<strong>可以用固定的编号去访问某个具体的Pod了，虽然 Pod 的 IP 地址可能会变，但这个有编号的域名由 Service 对象维护，是稳定不变的</strong></p>
+</blockquote>
+<p><img src="https://static001.geekbang.org/resource/image/1a/0f/1a06987c87f3db948b591883a81bac0f.jpg?wh=4000x2946" alt="img" loading="lazy"></p>
+<h3 id="Service与Ingress"><a href="#Service与Ingress" class="headerlink" title="Service与Ingress"></a>Service与Ingress</h3><blockquote>
+<p>不再关心 Pod 的具体地址，只要访问 Service 的固定 IP 地址</p>
+</blockquote>
+<p><img src="https://static001.geekbang.org/resource/image/0f/64/0f74ae3a71a6a661376698e481903d64.jpg?wh=1920x1322" alt="img" loading="lazy"></p>
+<h4 id="ingress-集群内外边界上的入口"><a href="#ingress-集群内外边界上的入口" class="headerlink" title="ingress:集群内外边界上的入口"></a>ingress:集群内外边界上的入口</h4><blockquote>
+<p>Ingress 的路由规则是 HTTP 协议，所以就不能用 IP 地址的方式访问，必须要用域名、URI</p>
+</blockquote>
+<p><img src="https://static001.geekbang.org/resource/image/e6/55/e6ce31b027ba2a8d94cdc553a2c97255.png?wh=1288x834" alt="img" loading="lazy"></p>
+<h4 id="四者联系"><a href="#四者联系" class="headerlink" title="四者联系"></a>四者联系</h4><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/bb7a911e10c103fb839e01438e184914.jpg" alt="img" loading="lazy"></p>
+<h2 id="几种更新策略"><a href="#几种更新策略" class="headerlink" title="几种更新策略"></a>几种更新策略</h2><blockquote>
+<p>普通部署 全部停掉 然后全部启动新的</p>
+<p>用时最短</p>
+</blockquote>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220007395.png" alt="image-20230521220007395" loading="lazy"></p>
+<h3 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h3><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220049973.png" alt="image-20230521220049973" loading="lazy"></p>
+<h3 id="蓝绿部署"><a href="#蓝绿部署" class="headerlink" title="蓝绿部署"></a>蓝绿部署</h3><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220049973.png" loading="lazy"></p>
+<p>金丝雀发布</p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220129212.png" alt="image-20230521220129212" loading="lazy"></p>
+<h2 id="应用更健康"><a href="#应用更健康" class="headerlink" title="应用更健康"></a>应用更健康</h2><blockquote>
+<p>创建容器有三大隔离技术：namespace、cgroup、chroot。其中的 namespace 实现了独立的进程空间，chroot 实现了独立的文件系统,cgroup 的作用是管控 CPU、内存，保证容器不会无节制地占用基础资源，进而影响到系统里的其他应用</p>
+</blockquote>
+<h3 id="cgroup"><a href="#cgroup" class="headerlink" title="cgroup"></a>cgroup</h3><p>CPU、内存与存储卷,在 Pod 容器的描述部分添加一个新字段 resources 进行申请，它就相当于申请资源的 Claim</p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221149186.png" alt="image-20230521221149186" loading="lazy"></p>
+<blockquote>
+<p>Kubernetes 里 CPU 的最小使用单位是 0.001，为了方便表示用了一个特别的单位 m，也就是“milli”“毫”的意思，比如说 500m 就相当于 0.5</p>
+</blockquote>
+<h3 id="容器状态探针-Probe"><a href="#容器状态探针-Probe" class="headerlink" title="容器状态探针(Probe)"></a>容器状态探针(Probe)</h3><blockquote>
+<p> 除了保证崩溃重启，还必须要能够探查到 Pod 的内部运行状态，定时给应用做“体检”，让应用时刻保持“健康”，能够满负荷稳定工作</p>
+</blockquote>
+<ul>
+<li><p>Startup，启动探针，用来检查应用是否已经启动成功，适合那些有大量初始化工作要做，启动很慢的应用。</p>
+</li>
+<li><p>Liveness，存活探针，用来检查应用是否正常运行，是否存在死锁、死循环。</p>
+</li>
+<li><p>Readiness，就绪探针，用来检查应用是否可以接收流量，是否能够对外提供服务</p>
+</li>
+</ul>
+<p><img src="https://static001.geekbang.org/resource/image/64/d9/64fde55dd2eab68f9968ff34218646d9.jpg?wh=1920x1200" alt="img" loading="lazy"></p>
+<h4 id="探测方式"><a href="#探测方式" class="headerlink" title="探测方式"></a>探测方式</h4><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221515092.png" alt="image-20230521221515092" loading="lazy"></p>
+<blockquote>
+<p>启用了 80 端口，然后用 location 指令定义了 HTTP 路径 &#x2F;ready，它作为对外暴露的“检查口”，用来检测就绪状态，返回简单的 200 状态码和一个字符串表示工作正常</p>
+</blockquote>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221701080.png" alt="image-20230521221701080" loading="lazy"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221605863.png" alt="image-20230521221605863" loading="lazy"></p>
+<h3 id="namespace-通过不同命名空间实现资源隔离"><a href="#namespace-通过不同命名空间实现资源隔离" class="headerlink" title="namespace:通过不同命名空间实现资源隔离"></a>namespace:通过不同命名空间实现资源隔离</h3><blockquote>
+<p>可以像管理容器一样，给名字空间设定配额，把整个集群的计算资源分割成不同的大小，按需分配给团队或项目使用</p>
+</blockquote>
+</div></section><div id="reward-container"><span class="hty-icon-button button-glow" id="reward-button" title="打赏" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === &quot;none&quot;) ? &quot;block&quot; : &quot;none&quot;;"><span class="icon iconify" data-icon="ri:hand-coin-line"></span></span><div id="reward-comment">I'm so cute. Please give me money.</div><div id="qr" style="display:none;"><div style="display:inline-block"><a href="/images/money.jpg"><img loading="lazy" src="/images/money.jpg" alt="微信支付" title="微信支付"></a><div><span style="color:#2DC100"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-wechat-pay-line"></use></svg></span></div></div></div></div></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2024/12/02/2024/" rel="prev" title="2024"><span class="icon iconify" data-icon="ri:arrow-left-s-line"></span><span class="post-nav-text">2024</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2024/10/23/%E8%B6%8A%E5%8D%97%E6%97%85%E6%B8%B8/" rel="next" title="越南旅游"><span class="post-nav-text">越南旅游</span><span class="icon iconify" data-icon="ri:arrow-right-s-line"></span></a></div></div></div><div class="hty-card" id="comment"><div class="comment-tooltip text-center"><span>欢迎来踩一踩</span><br></div></div></main><footer class="sidebar-translate" id="footer"><div class="beian"><a rel="noopener" href="https://beian.miit.gov.cn/" target="_blank">粤ICP备2020102011号</a></div><div class="copyright"><span>&copy; 2019 – 2025 </span><span class="with-love" id="animate"><span class="icon iconify" data-icon="ri:cloud-line"></span></span><span class="author"> darksheep</span></div><div class="powered"><span>由 <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 驱动 v6.2.0</span><span class="footer-separator">|</span><span>主题 - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v1.10.11</span></div><div class="live-time"><span>本站已在地球上苟活了</span><span id="display_live_time"></span><span class="moe-text">(●'◡'●)</span><script>function blog_live_time() {
+  setTimeout(blog_live_time, 1000);
+  const start = new Date('2020-10-12T00:00:00');
+  const now = new Date();
+  const timeDiff = (now.getTime() - start.getTime());
+  const msPerMinute = 60 * 1000;
+  const msPerHour = 60 * msPerMinute;
+  const msPerDay = 24 * msPerHour;
+  const passDay = Math.floor(timeDiff / msPerDay);
+  const passHour = Math.floor((timeDiff % msPerDay) / 60 / 60 / 1000);
+  const passMinute = Math.floor((timeDiff % msPerHour) / 60 / 1000);
+  const passSecond = Math.floor((timeDiff % msPerMinute) / 1000);
+  display_live_time.innerHTML = ` ${passDay} 天 ${passHour} 小时 ${passMinute} 分 ${passSecond} 秒`;
+}
+blog_live_time();
+</script></div><div class="footer-custom-text"><a  target="_blank" rel="noopener" href="https://www.travellings.cn/go.html" title="Travelling"  style="font-size:20px; color:orange">Travelling<svg style ="height:20px;width:20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ri icon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="ri:train-line"><path fill="orange" d="m17.2 20l1.8 1.5v.5H5v-.5L6.8 20H5a2 2 0 0 1-2-2V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v11a2 2 0 0 1-2 2zM7 5a2 2 0 0 0-2 2v11h14V7a2 2 0 0 0-2-2zm5 12a2 2 0 1 1 0-4a2 2 0 0 1 0 4M6 7h12v4H6z"></path></svg></a></div><div class="footer-support"><span>本网站由</span><a class="footer-support-logo" href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referral" target="blank" title="又拍云"><img height="30" src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" alt="又拍云"></a><span>提供 CDN 加速</span></div></footer></div><a class="hty-icon-button" id="back-to-top" aria-label="back-to-top" href="#"><span class="icon iconify" data-icon="ri:arrow-up-s-line"></span><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a><a class="popup-trigger hty-icon-button icon-search" id="search" target="_blank" rel="noopener" href="https://www.google.com/search?q=site:darksheep.xyz" title="搜索"><span class="site-state-item-icon"><span class="icon iconify" data-icon="ri:search-line"></span></span></a></body></html>
