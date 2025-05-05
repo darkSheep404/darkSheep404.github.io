@@ -25,6 +25,7 @@
     "hexo-renderer-marked": "^5.0.0",
     "hexo-renderer-stylus": "^2.0.1",
     "hexo-server": "^3.0.0",
+    "hexo-theme-fluid": "^1.9.8",
     "hexo-theme-stellar": "^1.29.1",
     "hexo-theme-yun": "^1.10.11",
     "js-yaml": "^4.1.0",

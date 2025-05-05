@@ -25,6 +25,16 @@ reward: true
 
 欢迎来到包子君的小站
 
+### Done
+* 2020.12.04[周五]:绑定自定义域名，新增site页面
+* 2020.12.03[周四]:自定义按钮重定向至分享分类
+* 2020.11.15[周日]：markdown文件外增加自定义html
+* 2020.11.14[周六]：重定向侧边栏自定义按钮为"拜读&分享"
+* 2020.11.08[周日]：使用GitHubAction进行自动部署，更改连接方式为SSH
+* 2025.04.22[周二]: 从[hexo-theme-yun](https://github.com/YunYouJun/hexo-theme-yun) 更换为[hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1)
+* 2025.05.06[周二]: 更换为[hexo-theme-Fluid](https://hexo.fluid-dev.com/docs/guide/#%E5%85%B3%E4%BA%8E%E6%8C%87%E5%8D%97)
+
+
 > ~~[小窝一号地址](https://darksheep.xyz)：由服务器+WordPress搭建~~
 >
 > 网址：darksheep.xyz（域名已经转移到本站）
