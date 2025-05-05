@@ -300,7 +300,7 @@ navbar:
           { key: "about", link: "/about/", icon: "iconfont icon-user-fill" },
           { key: "2024 Annual Summary ", link: "https://darksheep.xyz/demo-2025/2024/", icon: "iconfont icon-twitch-fill" }
       ]}
-    - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
+    - { key: "Travelling", link: "https://www.travellings.cn/go.html", icon: "iconfont icon-telegram-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
 
 # 搜索功能，基于 hexo-generator-search 插件，若已安装其他搜索插件请关闭此功能，以避免生成多余的索引文件
