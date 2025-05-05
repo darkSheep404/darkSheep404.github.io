@@ -8,6 +8,7 @@ date: 2020-12-01 15.07
 * 2020.11.15[周日]：markdown文件外增加自定义html
 * 2020.11.14[周六]：重定向侧边栏自定义按钮为"拜读&分享"
 * 2020.11.08[周日]：使用GitHubAction进行自动部署，更改连接方式为SSH
+* 2025.04.22[周二]: 从[hexo-theme-yun](https://github.com/YunYouJun/hexo-theme-yun) 更换为[hexo-theme-stellar](https://github.com/xaoxuu/hexo-theme-stellar/tree/1.29.1)
 
 
 ### ToDO

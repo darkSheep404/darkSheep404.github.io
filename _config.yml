@@ -5,6 +5,7 @@
 # Site
 title: '战忽包子的小站'
 subtitle: ''
+avatar: /images/logo.png
 description: ''
 keywords:
 author: darksheep
@@ -106,7 +107,7 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: yun
+theme: stellar
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
