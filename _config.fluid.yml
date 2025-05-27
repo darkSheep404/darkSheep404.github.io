@@ -294,11 +294,13 @@ navbar:
     - { key: "home", link: "/", icon: "iconfont icon-home-fill" }
     - { key: "archive", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "category", link: "/categories/", icon: "iconfont icon-category-fill" }
+    - { key: "地球Online装备库", link: "/pixel-vault/", icon: "iconfont codepen-fill" }
     - { key: "tag", link: "/tags/", icon: "iconfont icon-tags-fill" }
     - { key: "about", icon: "iconfont icon-user-fill" ,
       submenu: [
           { key: "about", link: "/about/", icon: "iconfont icon-user-fill" },
-          { key: "2024 Annual Summary ", link: "https://darksheep.xyz/demo-2025/2024/", icon: "iconfont icon-twitch-fill" }
+          { key: "2024 Annual Summary ", link: "https://darksheep.xyz/demo-2025/2024/", icon: "iconfont icon-twitch-fill" },
+          { key: "在线SQL 编辑器", link: "/sql/", icon: "iconfont code" }
       ]}
     - { key: "Travelling", link: "https://www.travellings.cn/go.html", icon: "iconfont icon-telegram-fill" }
     #- { key: "links", link: "/links/", icon: "iconfont icon-link-fill" }
