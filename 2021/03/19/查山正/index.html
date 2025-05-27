@@ -1,0 +1,1010 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/logo.png">
+  <link rel="icon" href="/images/logo.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="darksheep">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="查山正微信小程序开发日志">
+<meta property="og:type" content="article">
+<meta property="og:title" content="查山正微信小程序">
+<meta property="og:url" content="https://darksheep404.github.io/2021/03/19/%E6%9F%A5%E5%B1%B1%E6%AD%A3/index.html">
+<meta property="og:site_name" content="战忽包子の小窝">
+<meta property="og:description" content="查山正微信小程序开发日志">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20210303154025.png">
+<meta property="article:published_time" content="2021-03-19T15:20:18.000Z">
+<meta property="article:modified_time" content="2025-05-27T11:20:30.780Z">
+<meta property="article:author" content="darksheep">
+<meta property="article:tag" content="demo">
+<meta property="article:tag" content="微信小程序">
+<meta property="article:tag" content="云开发">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20210303154025.png">
+  
+  
+  
+  <title>查山正微信小程序 - 战忽包子の小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"darksheep404.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="战忽包子の小窝" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>战忽包子の小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/pixel-vault/" target="_self">
+                <i class="iconfont codepen-fill"></i>
+                <span>地球Online装备库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/about/" target="_self">
+                    <i class="iconfont icon-user-fill"></i>
+                    <span>关于</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://darksheep.xyz/demo-2025/2024/" target="_self">
+                    <i class="iconfont icon-twitch-fill"></i>
+                    <span>2024 Annual Summary </span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/sql/" target="_self">
+                    <i class="iconfont code"></i>
+                    <span>在线SQL 编辑器</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.travellings.cn/go.html" target="_self">
+                <i class="iconfont icon-telegram-fill"></i>
+                <span>Travelling</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="查山正微信小程序"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-03-19 15:20" pubdate>
+          2021年3月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          22 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">查山正微信小程序</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <ul>
+<li>提交表单时,contact为对象openid–贡献者对应微信昵称</li>
+<li>条目页面:显示贡献者微信昵称,头像(如果用户换头像,原头像url会过期失效–如果贡献了条目,则存储用户头像?)</li>
+</ul>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
+<li><input disabled="" type="checkbox"> <code>TODO</code>如需使用date字段,需初始化之前未设置date字段的数据库</li>
+<li><input disabled="" type="checkbox"> <code>feature</code>:主页随机一店,选择查看山正列表</li>
+<li><input disabled="" type="checkbox"> 提交汉服时的check改为精确匹配</li>
+<li><input disabled="" type="checkbox"> <code>fix</code>:小程序启动时获取info信息,而不是到了每个页面再加载</li>
+<li><input disabled="" type="checkbox"> <code>feature</code>:对于冲突汉服店铺信息的公示与投票</li>
+<li><input disabled="" type="checkbox"> <code>improve</code>:获取更多的汉服山正店铺信息</li>
+<li><input disabled="" type="checkbox"> <code>improve</code>汉服图片链接可以放到images目录下</li>
+<li><input disabled="" type="checkbox"> <code>fix</code>微信更新接口后更新原获取用户信息代码</li>
+<li><input disabled="" type="checkbox"> 添加功能导致的主页UI重构</li>
+</ul>
+<blockquote>
+<p>当前主页塞不下其他功能入口了</p>
+</blockquote>
+<ul>
+<li><input disabled="" type="checkbox"> 加入以图搜图入口</li>
+</ul>
+<blockquote>
+<p>可采用淘宝以图搜图接口</p>
+</blockquote>
+<h2 id="V0-3-0"><a href="#V0-3-0" class="headerlink" title="V0.3.0"></a>V0.3.0</h2><h3 id="bug修复"><a href="#bug修复" class="headerlink" title="bug修复"></a>bug修复</h3><ul>
+<li><p><input checked="" disabled="" type="checkbox"> 
+提交时的查询是模糊匹配还是全匹配?:<code>暂定为模糊匹配</code></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<code>TODO</code>如需使用date字段,需初始化之前未设置date字段的数据库</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>Fix</code>输入框为空时查询卡死</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>Fix</code>修复了添加新用户时忘记添加nums字段的bug</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>improve</code>新增汉服和冲突,用户增加了date字段</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>Fix</code>某次查询结果未收录后,以后查询都会显示一个未收录–<code>如果收录,重新置值为true</code></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>Fix</code>未收录时,显示的店铺名随输入框变动–<code>显示时使用新设定的值而非输入值</code></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>Fix</code>提交页面点击用户多次按钮造成的数据重复提交–<code>更改clickable为false</code></p>
+</li>
+</ul>
+<h3 id="进行中"><a href="#进行中" class="headerlink" title="进行中"></a>进行中</h3><p><code>小程序端后台管理系统</code></p>
+<ul>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>feature</code>:汉服店铺贡献者列表,按照贡献店铺数目排序(<code>预备v0.3.0推出</code>)</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<code>feature</code>  <code>admin</code> <code>timportant</code>待鉴定汉服页面</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>UI</code> <code>Fix</code>排名信息页的加载弹窗</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+删除函数:疑虑:remove没有日志,不知道删除了什么–<code>TODO:先查存入再删</code></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+修改函数</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+根据id查询函数</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+分页云函数:限定山正,分页跳转:</p>
+<blockquote>
+<ul>
+<li><input disabled="" type="checkbox"> </li>
+<li><input checked="" disabled="" type="checkbox"> 分页跳转</li>
+<li><input disabled="" type="checkbox"> 选择查看山正列表</li>
+<li><input disabled="" type="checkbox"> <code>feature</code>:主页随机一店</li>
+</ul>
+</blockquote>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+list页面处设置一个加载中弹窗,区分删除确认弹窗<code>UI</code> <code>Fix</code></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+优化显示列表,当前过于密集<code>UI</code> <code>Fix</code></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+获取列表改为都是山店or正店,可以拿到主页展示<code>admin</code> <code>user</code> <code>promove</code></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+冲突汉服信息的更正<code>feature</code>  <code>admin</code></p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+用户提交了已经有的数据<code>useractions</code></p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+所有文本尽量上云</p>
+</li>
+</ul>
+<blockquote>
+<p>带来加载缓慢问题–更改为小程序启动时全部获取放到缓存Storage中</p>
+</blockquote>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 待鉴定店铺小程序端查看</li>
+</ul>
+<blockquote>
+<p>去除未鉴定提交为表单,改为直接客服按钮发送店铺</p>
+</blockquote>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+提交汉服时的check改为精确匹配</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+未知汉服时主动沟通方法</p>
+<blockquote>
+<p>如上</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="待实现"><a href="#待实现" class="headerlink" title="待实现"></a>待实现</h3><ul>
+<li><p><input disabled="" type="checkbox"> 
+<code>fix</code>:小程序启动时获取info信息,而不是到了每个页面再加载</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<code>feature</code>:对于冲突汉服店铺信息的公示与投票</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<code>improve</code>:获取更多的汉服山正店铺信息</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>learning</code>:学习并利用云开发CMS便捷管理云端数据</p>
+</li>
+<li><p><input checked="" disabled="" type="checkbox"> 
+<code>feature</code>:对具体店铺的评论—(<code>预备v0.3.0推出</code>)</p>
+<blockquote>
+<p>评论区,论坛类需要企业资质</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="未收录体验优化"><a href="#未收录体验优化" class="headerlink" title="未收录体验优化"></a>未收录体验优化</h3><p><code>待选解决方案</code></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 如果未查到,自动收录到未查询数据库–定时统一搜集</li>
+<li><input checked="" disabled="" type="checkbox"> 弹出订阅模板消息申请–如果未查到获取订阅通知–收录后通知</li>
+<li><input checked="" disabled="" type="checkbox"> 未查询到–向客户发送消息–在提交页面新增–客服会话<code>feature</code> <code>timportant</code></li>
+</ul>
+<hr>
+<ul>
+<li><input disabled="" type="checkbox"> 汉服图片链接可以放到images目录下</li>
+<li><input disabled="" type="checkbox"> 主页tips换行符失效</li>
+<li><input disabled="" type="checkbox"> textarea不放在表单组件中时,无法移动光标,按向上方向键会丢失内容</li>
+<li><input disabled="" type="checkbox"> 使用text替代数组:未知问题:原来text使用换行符\n,不会换行,改为用数组遍历<view>实现换行</li>
+</ul>
+<hr>
+<h2 id="V0-2-0"><a href="#V0-2-0" class="headerlink" title="V0.2.0"></a>V0.2.0</h2><blockquote>
+</blockquote>
+<ul>
+<li><p><code>fix</code>:未录入店铺显示为山店</p>
+</li>
+<li><p>更正查询结果为模糊匹配所得列表–修正按钮位置</p>
+</li>
+<li><p>更正显示tips未从云端数据库获取:则不提交审核,仅修改数据库也可修正</p>
+</li>
+<li><p>展示提供店铺数目的人名单列表—待做</p>
+</li>
+<li><blockquote>
+<p>拟解决方案:更换true和false为</p>
+<ul>
+<li>或者:新增字段,如果false且该字段为真,则显示为未录入</li>
+<li><code>采用</code></li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h2 id="代码问题-amp-知识速记"><a href="#代码问题-amp-知识速记" class="headerlink" title="代码问题&amp;知识速记"></a>代码问题&amp;知识速记</h2><h3 id="数据库聚合查询"><a href="#数据库聚合查询" class="headerlink" title="数据库聚合查询"></a>数据库聚合查询</h3><p><code>project</code> 的形式如下：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs text">project(&#123;<br>  &lt;表达式&gt;<br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+<p>聚合阶段。把指定的字段传递给下一个流水线，指定的字段可以是某个已经存在的字段，也可以是计算出来的新字段。</p>
+<p><code>addFields</code> 等同于同时指定了所有已有字段和新增字段的 <code>project</code> 阶段</p>
+<p>const _ &#x3D; db.command</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">await</span> db.<span class="hljs-title function_">collection</span>(<span class="hljs-string">&#x27;user&#x27;</span>).<span class="hljs-title function_">where</span>(&#123;<br>    <span class="hljs-attr">openid</span>:wxContext.<span class="hljs-property">OPENID</span><br>  &#125;)<br>  .<span class="hljs-title function_">update</span>(&#123;<br>    <span class="hljs-attr">data</span>: &#123;<br>      <span class="hljs-comment">// 更新字段++</span><br>      <span class="hljs-attr">nums</span>:_.<span class="hljs-title function_">inc</span>(<span class="hljs-number">1</span>)<br>    &#125;,<br>  &#125;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><blockquote>
+<p>在微信开发中我们经常会用到标签中属性的属性值，有时候我们通过 data-* 和 e.target.dateset 来获取属性值</p>
+</blockquote>
+<ul>
+<li><p>调用出来的数据是undefined</p>
+</li>
+<li><p>data后面的属性名写得不规范！在data后面的属性名是不能按照驼峰式的写法，只要把定义的<strong>属性名全部换成小写</strong>就没有问题了</p>
+</li>
+<li><p>但这种方式有时也会存在 e.target.dataset&#x3D;{},此时productid&#x3D;undefined，就需要换一种解决办法。。。</p>
+<p>　　2）console.log(e)查看</p>
+<p>  　　e对象中包含两个对象分别是currentTarget和target，而真正的数据包含在currentTarget。 打印出e，找到你的数据，通过对象调用的方式即可。</p>
+<blockquote>
+<p>使用第一种的方法e.target.dataset.action   会获取当前点击的元素的action，则获取图片上的action，图片上没有action便取的是undefined； 使用第二种的方法e.currentTarget.dataset.action  会获取有事件的那个元素，即view，所以获得“father”</p>
+</blockquote>
+</li>
+<li><p><code>var date=new Date()</code>:js获取当前时间</p>
+</li>
+</ul>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20210303154025.png" srcset="/img/loading.gif" lazyload alt="image-20210303154021312"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">onLoad</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) &#123;<br>    wx.<span class="hljs-title function_">showLoading</span>(&#123;<br>      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;加载中&#x27;</span>,<br>    &#125;)<br>    <span class="hljs-keyword">var</span> that = <span class="hljs-variable language_">this</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;postid&#x27;</span>, options.<span class="hljs-property">postid</span>)<br>    <span class="hljs-keyword">const</span> db = wx.<span class="hljs-property">cloud</span>.<span class="hljs-title function_">database</span>()<br>    <span class="hljs-keyword">const</span> _ = db.<span class="hljs-property">command</span><br>    db.<span class="hljs-title function_">collection</span>(<span class="hljs-string">&#x27;post_collection&#x27;</span>).<span class="hljs-title function_">doc</span>(options.<span class="hljs-property">postid</span>).<span class="hljs-title function_">get</span>(&#123;<br>      <span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) &#123;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">data</span>)<br>      &#125;<br>    &#125;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-attr">onItemClick</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) &#123;<br>   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(e.<span class="hljs-property">currentTarget</span>.<span class="hljs-property">dataset</span>.<span class="hljs-property">postid</span>)<br>   wx.<span class="hljs-title function_">navigateTo</span>(&#123;<br>     <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;../postdetail/postdetail?postid=&#x27;</span> + e.<span class="hljs-property">currentTarget</span>.<span class="hljs-property">dataset</span>.<span class="hljs-property">postid</span>,<br>   &#125;)<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>表单的两种形式</p>
+<p>之前使用:利用双向绑定</p>
+<p>监听输入的值绑定到data里的数据</p>
+<p>按钮监听事件为将这些数据一起处理并调用云函数提交</p>
+<hr>
+<p>标准form:button设置submit属性</p>
+<p>提交时一起提交</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">db.<span class="hljs-title function_">collection</span>(<span class="hljs-string">&#x27;test&#x27;</span>).<span class="hljs-title function_">doc</span>(<span class="hljs-string">&#x27;milk-1&#x27;</span>).<span class="hljs-title function_">set</span>(&#123;<br>  <span class="hljs-attr">data</span>: &#123;<br>    <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;milk&#x27;</span>,<br>    <span class="hljs-attr">official</span>: <span class="hljs-string">&#x27;dairy&#x27;</span>,<br>    <span class="hljs-attr">beizhu</span>: <span class="hljs-string">&#x27;test&#x27;</span>,<br>  &#125;<br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+<p>   <code>//忘记添加await导致函数未生效</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-string">`await db.collection(&#x27;test&#x27;).doc(event.id).set(&#123;`</span><br><span class="hljs-keyword">var</span> that=<span class="hljs-variable language_">this</span>;<span class="hljs-comment">//进入云函数中this发生了变化,使用this.setData(&#123;&#125;)无效</span><br>wx.<span class="hljs-property">cloud</span>.<span class="hljs-title function_">callFunction</span>(&#123;<br>      <span class="hljs-comment">// 云函数名称</span><br>      <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;get_store_byName&#x27;</span>,<br>    <span class="hljs-comment">//携带的参数:storeName--云函数中使用event.storeName获取</span><br>      <span class="hljs-attr">data</span>:&#123;<br>       <span class="hljs-attr">storeName</span>:that.<span class="hljs-property">data</span>.<span class="hljs-property">storeName</span><br>      &#125;,<br>    <span class="hljs-comment">//成功后执行</span><br>      <span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) &#123;<br>        <span class="hljs-comment">//提取数据--返回的数据为res.result.云函数处定义的字段名.data</span><br>         <br>        <span class="hljs-keyword">var</span> data = res.<span class="hljs-property">result</span>.<span class="hljs-property">storelist</span>.<span class="hljs-property">data</span> <br>        <span class="hljs-comment">//此处为了简略代码,删去了else情况的操作</span><br>        <span class="hljs-keyword">if</span>(data.<span class="hljs-property">length</span>&gt;<span class="hljs-number">0</span>)&#123;<br>        that.<span class="hljs-title function_">setData</span>(&#123;<br>          <span class="hljs-attr">loadModal</span>:<span class="hljs-literal">false</span>,<br>          <span class="hljs-attr">storelist</span>: data<br>        &#125;)&#125;<br>      &#125;,<br>      <span class="hljs-attr">fail</span>: <span class="hljs-variable language_">console</span>.<span class="hljs-property">error</span><br>    &#125;)<br>  &#125;,<br></code></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li><input disabled="" type="checkbox"> <code>放在标签内和放在value的区别</code></li>
+<li><input disabled="" type="checkbox"> <code>doc返回的是一条值而不是一个列表</code></li>
+<li><input disabled="" type="checkbox"> </li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">maxlength</span>=<span class="hljs-string">&quot;-1&quot;</span>  <span class="hljs-attr">bindinput</span>=<span class="hljs-string">&quot;beizhuInput&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;&#123;&#123;storelist.beizhu&#125;&#125;&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">textarea</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><input disabled="" type="checkbox"> <strong>使用set更新其他字段后,未更新的字段name消失</strong></li>
+<li><input disabled="" type="checkbox"> <strong>onLoad里加载数据,从上一层回来时数据不会更新</strong></li>
+<li><input disabled="" type="checkbox"> onshow也不更新</li>
+</ul>
+<p>update 只能更新，set是有则替换，无则插入，覆盖操作</p>
+<p>set()更新字段下的所有数据</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">await</span> db.<span class="hljs-title function_">collection</span>(<span class="hljs-string">&#x27;hanfuStore&#x27;</span>).<span class="hljs-title function_">doc</span>(event.<span class="hljs-property">id</span>).<span class="hljs-title function_">set</span>(&#123;<br>   <span class="hljs-attr">data</span>: &#123;<br>     <span class="hljs-attr">official</span>: event.<span class="hljs-property">official</span>,<br>     <span class="hljs-attr">beizhu</span>: event.<span class="hljs-property">beizhu</span>,<br>   &#125;<br> <span class="hljs-comment">//事实上重写了data字段</span><br> &#125;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-number">1</span>，表示：将style的color的值更新为blue<br><span class="hljs-keyword">const</span> _ = db.<span class="hljs-property">command</span><br>db.<span class="hljs-title function_">collection</span>(<span class="hljs-string">&#x27;todos&#x27;</span>).<span class="hljs-title function_">doc</span>(<span class="hljs-string">&#x27;todo-identifiant-aleatoire&#x27;</span>).<span class="hljs-title function_">update</span>(&#123;<br><span class="hljs-attr">data</span>: &#123;<br> <span class="hljs-attr">style</span>: &#123;<br>   <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;blue&#x27;</span><br> &#125;<br>&#125;,<br><span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) &#123;<br> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">data</span>)<br>&#125;<br>&#125;)<br><br><span class="hljs-number">2</span>，表示：将style的值更新为对象&#123;<span class="hljs-attr">color</span>:blue&#125;<br><span class="hljs-keyword">const</span> _ = db.<span class="hljs-property">command</span><br>db.<span class="hljs-title function_">collection</span>(<span class="hljs-string">&#x27;todos&#x27;</span>).<span class="hljs-title function_">doc</span>(<span class="hljs-string">&#x27;todo-identifiant-aleatoire&#x27;</span>).<span class="hljs-title function_">update</span>(&#123;<br><span class="hljs-attr">data</span>: &#123;<br>   <span class="hljs-comment">//style的值更新为对象&#123;color:blue&#125;</span><br>   <span class="hljs-comment">//重写了style字段,而不是data字段</span><br> <span class="hljs-attr">style</span>: _.<span class="hljs-title function_">set</span>(&#123;<br>   <span class="hljs-attr">color</span>: <span class="hljs-string">&#x27;blue&#x27;</span><br> &#125;)<br>&#125;,<br><span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">res</span>) &#123;<br> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res.<span class="hljs-property">data</span>)<br>&#125;<br>&#125;)<br><span class="hljs-comment">//结果看起来一样，其实性能1更高些。</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><input checked="" disabled="" type="checkbox"> 固定在页面左侧不随滑动改变的按钮</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">position</span>: fixed;<br>    <span class="hljs-attribute">z-index</span>: <span class="hljs-number">1</span>;<span class="hljs-comment">/*设置悬浮优先级为最高,否则会被覆盖而看不到*/</span><br>    <span class="hljs-attribute">left</span>: <span class="hljs-number">0px</span>;<br>    <span class="hljs-attribute">bottom</span>: <span class="hljs-number">40%</span>;<br>    <span class="hljs-attribute">background-blend-mode</span>: color-burn;<br>    <span class="hljs-comment">/* top: 60%; */</span><br>   <br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>padding缩写:上右下左</p>
+</li>
+<li><blockquote>
+<blockquote>
+<p>小程序端与云函数端的表现会有如下差异：</p>
+<ul>
+<li>小程序端：注意与集合权限设置有关，一个用户仅能统计其有<strong>读权限</strong>的记录数</li>
+<li>云函数端：因属于管理端，因此可以统计集合的所有记录数</li>
+</ul>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<ul>
+<li><p><input disabled="" type="checkbox"> 
+<code>improve</code>查询–修改–页面同所有店铺页面分开–不具备翻页功能</p>
+</li>
+<li><p><input disabled="" type="checkbox"> 
+<code>所有正店</code> <code>所有山店</code>  页面</p>
+</li>
+<li><p><input disabled="" type="checkbox"> </p>
+</li>
+<li><p><input disabled="" type="checkbox"> </p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-title function_">showQrcode</span>(<span class="hljs-params"></span>) &#123;<br>    wx.<span class="hljs-title function_">previewImage</span>(&#123;<br>      <span class="hljs-attr">urls</span>: [<span class="hljs-string">&#x27;https://6865-helloyun-4ge5h4wyc91f5778-1304890457.tcb.qcloud.la/myQrCode/money.jpg?sign=0148353eddb814548368e3db70dd26ee&amp;t=1614000653&#x27;</span>],<br>      <span class="hljs-attr">current</span>: <span class="hljs-string">&#x27;https://6865-helloyun-4ge5h4wyc91f5778-1304890457.tcb.qcloud.la/myQrCode/money.jpg?sign=0148353eddb814548368e3db70dd26ee&amp;t=1614000653&#x27;</span> <span class="hljs-comment">// 当前显示图片的http链接      </span><br>    &#125;)<br>  &#125;,<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><input disabled="" type="checkbox"> 设置的弹窗为flase未生效</li>
+</ul>
+<p>  <code>云函数success的内容更改,更新云函数后才生效</code></p>
+<hr>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js">wx.<span class="hljs-property">cloud</span>.<span class="hljs-title function_">callFunction</span>(&#123;<br>     <span class="hljs-comment">// 云函数名称</span><br>     <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;get_store_list&#x27;</span>,<br>     <span class="hljs-attr">data</span>:&#123;<br>       <span class="hljs-attr">pages</span>:pages<br>     &#125;,<br>   <span class="hljs-comment">//携带的参数:storeName--云函数中使用event.storeName获取</span><br>   <span class="hljs-comment">//成功后执行</span><br>     <span class="hljs-attr">success</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">res</span>) &#123;<br>       <span class="hljs-keyword">var</span> data = res.<span class="hljs-property">result</span>.<span class="hljs-property">storeList</span>.<span class="hljs-property">data</span> <br>       that.<span class="hljs-title function_">setData</span>(&#123;<br>         <span class="hljs-comment">//此处设置一个加载中弹窗,区分删除确认弹窗</span><br>         <span class="hljs-attr">loadModel2</span>:<span class="hljs-literal">false</span>,<br>         <span class="hljs-attr">storelist</span>: data<br>       &#125;)<br>     &#125;,<br>     <span class="hljs-attr">fail</span>: <span class="hljs-variable language_">console</span>.<span class="hljs-property">error</span><br>   &#125;)<br></code></pre></td></tr></table></figure>
+
+<pre><code class="hljs">- [ ] 更新日志每次更新才会有,不需要云端更新数据库,采用静态html
+
+- [ ] 滚动公共栏
+</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">db.<span class="hljs-title function_">collection</span>(<span class="hljs-string">&#x27;admin&#x27;</span>).<span class="hljs-title function_">doc</span>(<span class="hljs-string">&#x27;admin81192&#x27;</span>).<span class="hljs-title function_">field</span>(&#123;<br>  <span class="hljs-attr">password</span>:<span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">_id</span>:<span class="hljs-literal">false</span><br>&#125;).<span class="hljs-title function_">get</span>()<br><br></code></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>云函数的返回格式:res.result.</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js">wx.<span class="hljs-property">cloud</span>.<span class="hljs-title function_">callFunction</span>(&#123;<br>     <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;check_admin&#x27;</span>,<br>     <span class="hljs-attr">data</span>: &#123;<br>       <span class="hljs-attr">username</span>: that.<span class="hljs-property">data</span>.<span class="hljs-property">username</span>,<br>       <span class="hljs-attr">password</span>:that.<span class="hljs-property">data</span>.<span class="hljs-property">password</span>,<br>     &#125;,<br>     <span class="hljs-attr">complete</span>: <span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;<br>      that.<span class="hljs-title function_">setData</span>(&#123;<br>        <span class="hljs-attr">checkres</span>:res.<span class="hljs-property">result</span><br>      &#125;)<br>          <span class="hljs-keyword">if</span>(that.<span class="hljs-property">data</span>.<span class="hljs-property">checkres</span>.<span class="hljs-property">res</span>)&#123;<br>       wx.<span class="hljs-title function_">navigateTo</span>(&#123;<br>         <span class="hljs-attr">url</span>: <span class="hljs-string">&#x27;/pages/admin/home&#x27;</span>,<br>       &#125;)<br>     &#125;<br>     <span class="hljs-keyword">else</span><br>     <span class="hljs-comment">//跳转回主页面</span><br>     &#123;<br>      that.<span class="hljs-title function_">setData</span>(&#123;<br>       <span class="hljs-attr">loadModal</span>:<span class="hljs-literal">true</span><br>      &#125;)<br>         <span class="hljs-comment">//放在compelete外报错:res为null,不知道是不是因为云函数异步调用还未结束</span><br>     &#125;<br>     &#125;,<br>   &#125;)<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/demo/" class="category-chain-item">demo</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/demo/" class="print-no-link">#demo</a>
+      
+        <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" class="print-no-link">#微信小程序</a>
+      
+        <a href="/tags/%E4%BA%91%E5%BC%80%E5%8F%91/" class="print-no-link">#云开发</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>查山正微信小程序</div>
+      <div>https://darksheep404.github.io/2021/03/19/查山正/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>darksheep</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年3月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/08/JUC%E5%AD%A6%E4%B9%A0/" title="JUC并发学习笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JUC并发学习笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/03/MVC,MVP%E5%92%8CMMM%E7%9A%84%E5%9B%BE%E7%A4%BA/" title="转载：MVC，MVP 和 MVVM 的图示">
+                        <span class="hidden-mobile">转载：MVC，MVP 和 MVVM 的图示</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a  target="_blank" rel="noopener" href="https://www.travellings.cn/go.html" title="Travelling"  style="font-size:20px; color:orange">Travelling<svg style ="height:20px;width:20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ri icon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="ri:train-line"><path fill="orange" d="m17.2 20l1.8 1.5v.5H5v-.5L6.8 20H5a2 2 0 0 1-2-2V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v11a2 2 0 0 1-2 2zM7 5a2 2 0 0 0-2 2v11h14V7a2 2 0 0 0-2-2zm5 12a2 2 0 1 1 0-4a2 2 0 0 1 0 4M6 7h12v4H6z"></path></svg></a> <br><a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"> <br><img src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云" style="vertical-align: middle; width: 20px; height: 20px;"> 本网站由又拍云提供 CDN 加速 </a> <br><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      粤ICP备2020102011号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

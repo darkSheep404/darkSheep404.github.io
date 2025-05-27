@@ -1,0 +1,954 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/logo.png">
+  <link rel="icon" href="/images/logo.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="darksheep">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] From Java To Kotlin 打印日志 Java  12System.out.print(&quot;Amit Shekhar&quot;);System.out.println(&quot;Amit Shekhar&quot;);   Kotlin  12print(&quot;Amit Shekhar&quot;)println(&quot;Amit Shekhar&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分享:From Java To Kotlin">
+<meta property="og:url" content="https://darksheep404.github.io/2020/11/19/From%20Java%20To%20Kotlin/index.html">
+<meta property="og:site_name" content="战忽包子の小窝">
+<meta property="og:description" content="[TOC] From Java To Kotlin 打印日志 Java  12System.out.print(&quot;Amit Shekhar&quot;);System.out.println(&quot;Amit Shekhar&quot;);   Kotlin  12print(&quot;Amit Shekhar&quot;)println(&quot;Amit Shekhar&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-19T15:20:18.000Z">
+<meta property="article:modified_time" content="2025-05-27T11:20:30.779Z">
+<meta property="article:author" content="darksheep">
+<meta property="article:tag" content="指南">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>分享:From Java To Kotlin - 战忽包子の小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"darksheep404.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="战忽包子の小窝" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>战忽包子の小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/pixel-vault/" target="_self">
+                <i class="iconfont codepen-fill"></i>
+                <span>地球Online装备库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/about/" target="_self">
+                    <i class="iconfont icon-user-fill"></i>
+                    <span>关于</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://darksheep.xyz/demo-2025/2024/" target="_self">
+                    <i class="iconfont icon-twitch-fill"></i>
+                    <span>2024 Annual Summary </span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/sql/" target="_self">
+                    <i class="iconfont code"></i>
+                    <span>在线SQL 编辑器</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.travellings.cn/go.html" target="_self">
+                <i class="iconfont icon-telegram-fill"></i>
+                <span>Travelling</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="分享:From Java To Kotlin"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-19 15:20" pubdate>
+          2020年11月19日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          925 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          8 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">分享:From Java To Kotlin</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/MindorksOpenSource/from-java-to-kotlin/blob/master/README-ZH.md">From Java To Kotlin</a></p>
+<h2 id="打印日志"><a href="#打印日志" class="headerlink" title="打印日志"></a>打印日志</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">System.out.print(<span class="hljs-string">&quot;Amit Shekhar&quot;</span>);<br>System.out.println(<span class="hljs-string">&quot;Amit Shekhar&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">print(<span class="hljs-string">&quot;Amit Shekhar&quot;</span>)<br>println(<span class="hljs-string">&quot;Amit Shekhar&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="常量与变量"><a href="#常量与变量" class="headerlink" title="常量与变量"></a>常量与变量</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Amit Shekhar&quot;</span>;<br><span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Amit Shekhar&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&quot;Amit Shekhar&quot;</span><br><span class="hljs-keyword">val</span> name = <span class="hljs-string">&quot;Amit Shekhar&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="null声明"><a href="#null声明" class="headerlink" title="null声明"></a>null声明</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">String otherName;<br>otherName = <span class="hljs-literal">null</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span> otherName : String?<br>otherName = <span class="hljs-literal">null</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="空判断"><a href="#空判断" class="headerlink" title="空判断"></a>空判断</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (text != <span class="hljs-literal">null</span>) &#123;<br>    <span class="hljs-type">int</span> <span class="hljs-variable">length</span> <span class="hljs-operator">=</span> text.length();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">text?.let &#123;<br>    <span class="hljs-keyword">val</span> length = text.length<br>&#125;<br><span class="hljs-comment">// or simply</span><br><span class="hljs-keyword">val</span> length = text?.length<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="字符串拼接"><a href="#字符串拼接" class="headerlink" title="字符串拼接"></a>字符串拼接</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">firstName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Amit&quot;</span>;<br><span class="hljs-type">String</span> <span class="hljs-variable">lastName</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;Shekhar&quot;</span>;<br><span class="hljs-type">String</span> <span class="hljs-variable">message</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;My name is: &quot;</span> + firstName + <span class="hljs-string">&quot; &quot;</span> + lastName;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> firstName = <span class="hljs-string">&quot;Amit&quot;</span><br><span class="hljs-keyword">val</span> lastName = <span class="hljs-string">&quot;Shekhar&quot;</span><br><span class="hljs-keyword">val</span> message = <span class="hljs-string">&quot;My name is: <span class="hljs-variable">$firstName</span> <span class="hljs-variable">$lastName</span>&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="换行"><a href="#换行" class="headerlink" title="换行"></a>换行</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">text</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;First Line\n&quot;</span> +<br>              <span class="hljs-string">&quot;Second Line\n&quot;</span> +<br>              <span class="hljs-string">&quot;Third Line&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> text = <span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">        |First Line</span><br><span class="hljs-string">        |Second Line</span><br><span class="hljs-string">        |Third Line</span><br><span class="hljs-string">        &quot;&quot;&quot;</span>.trimMargin()<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三元表达式"><a href="#三元表达式" class="headerlink" title="三元表达式"></a>三元表达式</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">String</span> <span class="hljs-variable">text</span> <span class="hljs-operator">=</span> x &gt; <span class="hljs-number">5</span> ? <span class="hljs-string">&quot;x &gt; 5&quot;</span> : <span class="hljs-string">&quot;x &lt;= 5&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> text = <span class="hljs-keyword">if</span> (x &gt; <span class="hljs-number">5</span>)<br>              <span class="hljs-string">&quot;x &gt; 5&quot;</span><br>           <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;x &lt;= 5&quot;</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h2><ul>
+<li>java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">andResult</span>  <span class="hljs-operator">=</span> a &amp; b;<br><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">orResult</span>   <span class="hljs-operator">=</span> a | b;<br><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">xorResult</span>  <span class="hljs-operator">=</span> a ^ b;<br><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">rightShift</span> <span class="hljs-operator">=</span> a &gt;&gt; <span class="hljs-number">2</span>;<br><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">leftShift</span>  <span class="hljs-operator">=</span> a &lt;&lt; <span class="hljs-number">2</span>;<br><span class="hljs-keyword">final</span> <span class="hljs-type">int</span> <span class="hljs-variable">unsignedRightShift</span> <span class="hljs-operator">=</span> a &gt;&gt;&gt; <span class="hljs-number">2</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> andResult  = a and b<br><span class="hljs-keyword">val</span> orResult   = a or b<br><span class="hljs-keyword">val</span> xorResult  = a xor b<br><span class="hljs-keyword">val</span> rightShift = a shr <span class="hljs-number">2</span><br><span class="hljs-keyword">val</span> leftShift  = a shl <span class="hljs-number">2</span><br><span class="hljs-keyword">val</span> unsignedRightShift = a ushr <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="类型判断和转换-声明式"><a href="#类型判断和转换-声明式" class="headerlink" title="类型判断和转换 (声明式)"></a>类型判断和转换 (声明式)</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (object <span class="hljs-keyword">instanceof</span> Car) &#123;<br>&#125;<br><span class="hljs-type">Car</span> <span class="hljs-variable">car</span> <span class="hljs-operator">=</span> (Car) object;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">object</span> <span class="hljs-keyword">is</span> Car) &#123;<br>&#125;<br><span class="hljs-keyword">var</span> car = <span class="hljs-keyword">object</span> <span class="hljs-keyword">as</span> Car<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="类型判断和转换-隐式"><a href="#类型判断和转换-隐式" class="headerlink" title="类型判断和转换 (隐式)"></a>类型判断和转换 (隐式)</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (object <span class="hljs-keyword">instanceof</span> Car) &#123;<br>   <span class="hljs-type">Car</span> <span class="hljs-variable">car</span> <span class="hljs-operator">=</span> (Car) object;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">object</span> <span class="hljs-keyword">is</span> Car) &#123;<br>   <span class="hljs-keyword">var</span> car = <span class="hljs-keyword">object</span> <span class="hljs-comment">// 聪明的转换</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="多重条件"><a href="#多重条件" class="headerlink" title="多重条件"></a>多重条件</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">if</span> (score &gt;= <span class="hljs-number">0</span> &amp;&amp; score &lt;= <span class="hljs-number">300</span>) &#123; &#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span> (score <span class="hljs-keyword">in</span> <span class="hljs-number">0.</span><span class="hljs-number">.300</span>) &#123; &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="更灵活的case语句"><a href="#更灵活的case语句" class="headerlink" title="更灵活的case语句"></a>更灵活的case语句</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-variable">score</span> <span class="hljs-operator">=</span> <span class="hljs-comment">// some score;</span><br>String grade;<br><span class="hljs-keyword">switch</span> (score) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">10</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">9</span>:<br>        grade = <span class="hljs-string">&quot;Excellent&quot;</span>;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">8</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">7</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">6</span>:<br>        grade = <span class="hljs-string">&quot;Good&quot;</span>;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">5</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">4</span>:<br>        grade = <span class="hljs-string">&quot;OK&quot;</span>;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">3</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:<br>        grade = <span class="hljs-string">&quot;Fail&quot;</span>;<br>        <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">default</span>:<br>        grade = <span class="hljs-string">&quot;Fail&quot;</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">var</span> score = <span class="hljs-comment">// some score</span><br><span class="hljs-keyword">var</span> grade = <span class="hljs-keyword">when</span> (score) &#123;<br>    <span class="hljs-number">9</span>, <span class="hljs-number">10</span> -&gt; <span class="hljs-string">&quot;Excellent&quot;</span><br>    <span class="hljs-keyword">in</span> <span class="hljs-number">6.</span><span class="hljs-number">.8</span> -&gt; <span class="hljs-string">&quot;Good&quot;</span><br>    <span class="hljs-number">4</span>, <span class="hljs-number">5</span> -&gt; <span class="hljs-string">&quot;OK&quot;</span><br>    <span class="hljs-keyword">in</span> <span class="hljs-number">1.</span><span class="hljs-number">.3</span> -&gt; <span class="hljs-string">&quot;Fail&quot;</span><br>    <span class="hljs-keyword">else</span> -&gt; <span class="hljs-string">&quot;Fail&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a>for循环</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span> ; i++) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt; <span class="hljs-number">10</span> ; i++) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>; i &gt;= <span class="hljs-number">0</span> ; i--) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">10</span> ; i+=<span class="hljs-number">2</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> <span class="hljs-variable">i</span> <span class="hljs-operator">=</span> <span class="hljs-number">10</span>; i &gt;= <span class="hljs-number">0</span> ; i-=<span class="hljs-number">2</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (String item : collection) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (Map.Entry&lt;String, String&gt; entry: map.entrySet()) &#123; &#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1.</span><span class="hljs-number">.10</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span> until <span class="hljs-number">10</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">10</span> downTo <span class="hljs-number">0</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1.</span><span class="hljs-number">.10</span> step <span class="hljs-number">2</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">10</span> downTo <span class="hljs-number">0</span> step <span class="hljs-number">2</span>) &#123; &#125;<br><br><span class="hljs-keyword">for</span> (item <span class="hljs-keyword">in</span> collection) &#123; &#125;<br><br><span class="hljs-keyword">for</span> ((key, value) <span class="hljs-keyword">in</span> map) &#123; &#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="更方便的集合操作"><a href="#更方便的集合操作" class="headerlink" title="更方便的集合操作"></a>更方便的集合操作</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">final</span> List&lt;Integer&gt; listOfNumber = Arrays.asList(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);<br><br><span class="hljs-keyword">final</span> Map&lt;Integer, String&gt; keyValue = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;Integer, String&gt;();<br>map.put(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;Amit&quot;</span>);<br>map.put(<span class="hljs-number">2</span>, <span class="hljs-string">&quot;Ali&quot;</span>);<br>map.put(<span class="hljs-number">3</span>, <span class="hljs-string">&quot;Mindorks&quot;</span>);<br><br><span class="hljs-comment">// Java 9</span><br><span class="hljs-keyword">final</span> List&lt;Integer&gt; listOfNumber = List.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>);<br><br><span class="hljs-keyword">final</span> Map&lt;Integer, String&gt; keyValue = Map.of(<span class="hljs-number">1</span>, <span class="hljs-string">&quot;Amit&quot;</span>,<br>                                             <span class="hljs-number">2</span>, <span class="hljs-string">&quot;Ali&quot;</span>,<br>                                             <span class="hljs-number">3</span>, <span class="hljs-string">&quot;Mindorks&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">val</span> listOfNumber = listOf(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)<br><span class="hljs-keyword">val</span> keyValue = mapOf(<span class="hljs-number">1</span> to <span class="hljs-string">&quot;Amit&quot;</span>,<br>                     <span class="hljs-number">2</span> to <span class="hljs-string">&quot;Ali&quot;</span>,<br>                     <span class="hljs-number">3</span> to <span class="hljs-string">&quot;Mindorks&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">// Java 7 and below</span><br><span class="hljs-keyword">for</span> (Car car : cars) &#123;<br>  System.out.println(car.speed);<br>&#125;<br><br><span class="hljs-comment">// Java 8+</span><br>cars.forEach(car -&gt; System.out.println(car.speed));<br><br><span class="hljs-comment">// Java 7 and below</span><br><span class="hljs-keyword">for</span> (Car car : cars) &#123;<br>  <span class="hljs-keyword">if</span> (car.speed &gt; <span class="hljs-number">100</span>) &#123;<br>    System.out.println(car.speed);<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// Java 8+</span><br>cars.stream().filter(car -&gt; car.speed &gt; <span class="hljs-number">100</span>).forEach(car -&gt; System.out.println(car.speed));<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">cars.forEach &#123;<br>    println(it.speed)<br>&#125;<br><br>cars.filter &#123; it.speed &gt; <span class="hljs-number">100</span> &#125;<br>      .forEach &#123; println(it.speed)&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="方法定义"><a href="#方法定义" class="headerlink" title="方法定义"></a>方法定义</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">void</span> <span class="hljs-title function_">doSomething</span><span class="hljs-params">()</span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>&#125;<br><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">doSomething</span><span class="hljs-params">(<span class="hljs-type">int</span>... numbers)</span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">doSomething</span><span class="hljs-params">()</span></span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">doSomething</span><span class="hljs-params">(<span class="hljs-keyword">vararg</span> numbers: <span class="hljs-type">Int</span>)</span></span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="带返回值的方法"><a href="#带返回值的方法" class="headerlink" title="带返回值的方法"></a>带返回值的方法</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-title function_">getScore</span><span class="hljs-params">()</span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>   <span class="hljs-keyword">return</span> score;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>   <span class="hljs-keyword">return</span> score<br>&#125;<br><br><span class="hljs-comment">// as a single-expression function</span><br><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> = score<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="无结束符号"><a href="#无结束符号" class="headerlink" title="无结束符号"></a>无结束符号</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">int</span> <span class="hljs-title function_">getScore</span><span class="hljs-params">(<span class="hljs-type">int</span> value)</span> &#123;<br>    <span class="hljs-comment">// logic here</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">(value: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>   <span class="hljs-comment">// logic here</span><br>   <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value<br>&#125;<br><br><span class="hljs-comment">// as a single-expression function</span><br><br><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">(value: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> = <span class="hljs-number">2</span> * value<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="constructor-构造器"><a href="#constructor-构造器" class="headerlink" title="constructor 构造器"></a>constructor 构造器</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Utils</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Utils</span><span class="hljs-params">()</span> &#123; <br>      <span class="hljs-comment">// This utility class is not publicly instantiable </span><br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getScore</span><span class="hljs-params">(<span class="hljs-type">int</span> value)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value;<br>    &#125;<br>    <br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Utils</span> <span class="hljs-keyword">private</span> <span class="hljs-keyword">constructor</span></span>() &#123;<br><br>    <span class="hljs-keyword">companion</span> <span class="hljs-keyword">object</span> &#123;<br>    <br>        <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">(value: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value<br>        &#125;<br>        <br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// another way</span><br><br><span class="hljs-keyword">object</span> Utils &#123;<br><br>    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getScore</span><span class="hljs-params">(value: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">2</span> * value<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Get-Set-构造器"><a href="#Get-Set-构造器" class="headerlink" title="Get Set 构造器"></a>Get Set 构造器</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Developer</span> &#123;<br><br>    <span class="hljs-keyword">private</span> String name;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> age;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">Developer</span><span class="hljs-params">(String name, <span class="hljs-type">int</span> age)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getName</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setName</span><span class="hljs-params">(String name)</span> &#123;<br>        <span class="hljs-built_in">this</span>.name = name;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getAge</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> age;<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setAge</span><span class="hljs-params">(<span class="hljs-type">int</span> age)</span> &#123;<br>        <span class="hljs-built_in">this</span>.age = age;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">equals</span><span class="hljs-params">(Object o)</span> &#123;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span> == o) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        <span class="hljs-keyword">if</span> (o == <span class="hljs-literal">null</span> || getClass() != o.getClass()) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br><br>        <span class="hljs-type">Developer</span> <span class="hljs-variable">developer</span> <span class="hljs-operator">=</span> (Developer) o;<br><br>        <span class="hljs-keyword">if</span> (age != developer.age) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        <span class="hljs-keyword">return</span> name != <span class="hljs-literal">null</span> ? name.equals(developer.name) : developer.name == <span class="hljs-literal">null</span>;<br><br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">hashCode</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> name != <span class="hljs-literal">null</span> ? name.hashCode() : <span class="hljs-number">0</span>;<br>        result = <span class="hljs-number">31</span> * result + age;<br>        <span class="hljs-keyword">return</span> result;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">toString</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Developer&#123;&quot;</span> +<br>                <span class="hljs-string">&quot;name=&#x27;&quot;</span> + name + <span class="hljs-string">&#x27;\&#x27;&#x27;</span> +<br>                <span class="hljs-string">&quot;, age=&quot;</span> + age +<br>                <span class="hljs-string">&#x27;&#125;&#x27;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">data</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Developer</span></span>(<span class="hljs-keyword">val</span> name: String, <span class="hljs-keyword">val</span> age: <span class="hljs-built_in">Int</span>)<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="原型扩展"><a href="#原型扩展" class="headerlink" title="原型扩展"></a>原型扩展</h2><ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Utils</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-title function_">Utils</span><span class="hljs-params">()</span> &#123; <br>      <span class="hljs-comment">// This utility class is not publicly instantiable </span><br>    &#125;<br>    <br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-type">int</span> <span class="hljs-title function_">triple</span><span class="hljs-params">(<span class="hljs-type">int</span> value)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">3</span> * value;<br>    &#125;<br>    <br>&#125;<br><br><span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> Utils.triple(<span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-built_in">Int</span>.<span class="hljs-title">triple</span><span class="hljs-params">()</span></span>: <span class="hljs-built_in">Int</span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span> * <span class="hljs-number">3</span><br>&#125;<br><br><span class="hljs-keyword">var</span> result = <span class="hljs-number">3.</span>triple()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Java</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">Direction</span> &#123;<br>        NORTH(<span class="hljs-number">1</span>),<br>        SOUTH(<span class="hljs-number">2</span>),<br>        WEST(<span class="hljs-number">3</span>),<br>        EAST(<span class="hljs-number">4</span>);<br><br>        <span class="hljs-type">int</span> direction;<br><br>        Direction(<span class="hljs-type">int</span> direction) &#123;<br>            <span class="hljs-built_in">this</span>.direction = direction;<br>        &#125;<br><br>        <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getDirection</span><span class="hljs-params">()</span> &#123;<br>            <span class="hljs-keyword">return</span> direction;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>Kotlin</li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">enum</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Direction</span></span>(<span class="hljs-keyword">val</span> direction: <span class="hljs-built_in">Int</span>) &#123;<br>    NORTH(<span class="hljs-number">1</span>),<br>    SOUTH(<span class="hljs-number">2</span>),<br>    WEST(<span class="hljs-number">3</span>),<br>    EAST(<span class="hljs-number">4</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%88%86%E4%BA%AB/" class="category-chain-item">分享</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%8C%87%E5%8D%97/" class="print-no-link">#指南</a>
+      
+        <a href="/tags/java/" class="print-no-link">#java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>分享:From Java To Kotlin</div>
+      <div>https://darksheep404.github.io/2020/11/19/From Java To Kotlin/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>darksheep</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年11月19日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/24/%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E7%8C%AB%E5%9B%BEAPP/" title="随机获取猫图APP">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">随机获取猫图APP</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/19/QQ%E8%A2%AB%E5%B0%81%E5%90%8E%E6%AD%A3%E5%B8%B8%E4%BD%BF%E7%94%A8QQ%E9%82%AE%E7%AE%B1%E7%9A%84%E6%96%B9%E6%B3%95/" title="分享：QQ被封后还能正常使用QQ邮箱的方法">
+                        <span class="hidden-mobile">分享：QQ被封后还能正常使用QQ邮箱的方法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a  target="_blank" rel="noopener" href="https://www.travellings.cn/go.html" title="Travelling"  style="font-size:20px; color:orange">Travelling<svg style ="height:20px;width:20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ri icon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="ri:train-line"><path fill="orange" d="m17.2 20l1.8 1.5v.5H5v-.5L6.8 20H5a2 2 0 0 1-2-2V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v11a2 2 0 0 1-2 2zM7 5a2 2 0 0 0-2 2v11h14V7a2 2 0 0 0-2-2zm5 12a2 2 0 1 1 0-4a2 2 0 0 1 0 4M6 7h12v4H6z"></path></svg></a> <br><a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"> <br><img src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云" style="vertical-align: middle; width: 20px; height: 20px;"> 本网站由又拍云提供 CDN 加速 </a> <br><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      粤ICP备2020102011号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

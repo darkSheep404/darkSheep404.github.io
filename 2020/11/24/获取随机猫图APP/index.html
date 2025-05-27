@@ -1,0 +1,779 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/logo.png">
+  <link rel="icon" href="/images/logo.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="darksheep">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="[TOC] 安卓实验:随机猫图  安卓实验:随机猫图:cat:   使用技术：RecycleView，Glide  运行效果 遇到的待解决的问题 Oncreate里给RecycleView传入了八张初始图片，并没有按照瀑布流显示，而是排成了一行 运行点击函数后才刷新成设置的两列   拟解决办法，oncreate里面调用一个刷新函数，函数执行notifyItemChanged(0)  实际未改变，希">
+<meta property="og:type" content="article">
+<meta property="og:title" content="随机获取猫图APP">
+<meta property="og:url" content="https://darksheep404.github.io/2020/11/24/%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E7%8C%AB%E5%9B%BEAPP/index.html">
+<meta property="og:site_name" content="战忽包子の小窝">
+<meta property="og:description" content="[TOC] 安卓实验:随机猫图  安卓实验:随机猫图:cat:   使用技术：RecycleView，Glide  运行效果 遇到的待解决的问题 Oncreate里给RecycleView传入了八张初始图片，并没有按照瀑布流显示，而是排成了一行 运行点击函数后才刷新成设置的两列   拟解决办法，oncreate里面调用一个刷新函数，函数执行notifyItemChanged(0)  实际未改变，希">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124224447.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124200225.png">
+<meta property="article:published_time" content="2020-11-24T15:20:18.000Z">
+<meta property="article:modified_time" content="2025-05-27T11:20:30.780Z">
+<meta property="article:author" content="darksheep">
+<meta property="article:tag" content="demo">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="kotlin">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124224447.jpg">
+  
+  
+  
+  <title>随机获取猫图APP - 战忽包子の小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"darksheep404.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="战忽包子の小窝" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>战忽包子の小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/pixel-vault/" target="_self">
+                <i class="iconfont codepen-fill"></i>
+                <span>地球Online装备库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/about/" target="_self">
+                    <i class="iconfont icon-user-fill"></i>
+                    <span>关于</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://darksheep.xyz/demo-2025/2024/" target="_self">
+                    <i class="iconfont icon-twitch-fill"></i>
+                    <span>2024 Annual Summary </span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/sql/" target="_self">
+                    <i class="iconfont code"></i>
+                    <span>在线SQL 编辑器</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.travellings.cn/go.html" target="_self">
+                <i class="iconfont icon-telegram-fill"></i>
+                <span>Travelling</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="随机获取猫图APP"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-24 15:20" pubdate>
+          2020年11月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">随机获取猫图APP</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>[TOC]</p>
+<h2 id="安卓实验-随机猫图"><a href="#安卓实验-随机猫图" class="headerlink" title="安卓实验:随机猫图"></a>安卓实验:随机猫图</h2><blockquote>
+<p> 安卓实验:随机猫图:cat:</p>
+</blockquote>
+<blockquote>
+<p>使用技术：RecycleView，Glide</p>
+</blockquote>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124224447.jpg" srcset="/img/loading.gif" lazyload alt="Screenshot_20201124_224008_com.demo.catws"></p>
+<h3 id="遇到的待解决的问题"><a href="#遇到的待解决的问题" class="headerlink" title="遇到的待解决的问题"></a>遇到的待解决的问题</h3><ul>
+<li><code>Oncreate</code>里给<code>RecycleView</code>传入了八张初始图片，并没有按照瀑布流显示，而是排成了一行</li>
+<li>运行点击函数后才刷新成设置的两列</li>
+</ul>
+<blockquote>
+<p>拟解决办法，<code>oncreate</code>里面调用一个刷新函数，函数执行<code>notifyItemChanged(0)</code></p>
+<blockquote>
+<p>实际未改变，希望他刷新布局</p>
+</blockquote>
+<blockquote>
+<p>并未解决</p>
+</blockquote>
+</blockquote>
+<p>* </p>
+<ul>
+<li><p>点击函数里清空了items数组，使用<code>myadaper?.notifyItemInserted(data.size-1)</code>报错越界</p>
+<p>使用<code>myadaper!!.notifyItemChanged(data.size-1)</code>反而正常</p>
+</li>
+</ul>
+<blockquote>
+<p>猜想，data数组更新了，但是适配器里的数组还保存着原来的数据，调用notify函数后才更新对应位置数据</p>
+<p>所以主页面里按data空数组下标从0开始插入反而报错</p>
+<p><strong>报错日志</strong></p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs verilog">D/TAG----&gt;得到第 <span class="hljs-number">0</span> 个图片链接：: https:<span class="hljs-comment">//24.media.tumblr.com/tumblr_lwwcqwNiyE1r0mbi6o1_500.jpg</span><br>D/TAG----&gt;得到第 <span class="hljs-number">1</span> 个图片链接：: https:<span class="hljs-comment">//25.media.tumblr.com/tumblr_ll6oplOJki1qjahcpo1_500.jpg</span><br>D/TAG----&gt;重置了第<span class="hljs-number">1</span> 个图片链接：:             <br>D/TAG----&gt;得到第 <span class="hljs-number">2</span> 个图片链接：: https:<span class="hljs-comment">//25.media.tumblr.com/tumblr_ln7y9yW8hn1qdth8zo1_500.jpg</span><br>D/TAG----&gt;得到第 <span class="hljs-number">3</span> 个图片链接：: https:<span class="hljs-comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/PfA5hN4En.jpg</span><br>D/TAG----&gt;得到第 <span class="hljs-number">4</span> 个图片链接：: https:<span class="hljs-comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/1XJ21J4EE.jpg</span><br>D/TAG----&gt;得到第 <span class="hljs-number">5</span> 个图片链接：: https:<span class="hljs-comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/2B3n7I5u2.jpg</span><br>D/TAG----&gt;得到第 <span class="hljs-number">6</span> 个图片链接：: https:<span class="hljs-comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/0xvhPJ8pd.jpg</span><br>D/TAG----&gt;得到第 <span class="hljs-number">7</span> 个图片链接：: https:<span class="hljs-comment">//s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/6X-Rt4SAF.jpg</span><br>D/Tag: 执行了onBindViewHolder<br>D/AndroidRuntime: Shutting down VM<br>E/AndroidRuntime: FATAL EXCEPTION: main<br> Process: com<span class="hljs-variable">.demo</span><span class="hljs-variable">.catws</span>, PID: <span class="hljs-number">23693</span><br> java<span class="hljs-variable">.lang</span><span class="hljs-variable">.IndexOutOfBoundsException</span>: Inconsistency detected. Invalid item position <span class="hljs-number">7</span>(offset:<span class="hljs-number">8</span>)<span class="hljs-variable">.state</span>:<span class="hljs-number">8</span> androidx<span class="hljs-variable">.recyclerview</span><span class="hljs-variable">.widget</span><span class="hljs-variable">.RecyclerView</span>&#123;abf2cbd VFED..... .....<span class="hljs-variable">.ID</span> -<span class="hljs-number">72</span>,<span class="hljs-number">246</span>-<span class="hljs-number">1155</span>,<span class="hljs-number">2109</span> #<span class="hljs-number">7</span>f070083 app:id/recycle&#125;, <br></code></pre></td></tr></table></figure>
+
+
+</blockquote>
+<ul>
+<li><p>初始化的<code>recycleview</code>传入空数组时也不能使用<code>insert</code>，但可以使用<code>changed</code> 。。。。</p>
+</li>
+<li><p><strong>报错日志</strong></p>
+</li>
+<li><p>&#96;&#96;&#96;verilog<br>D&#x2F;TAG—-&gt;得到第 0 个图片链接：: <a target="_blank" rel="noopener" href="https://26.media.tumblr.com/Jjkybd3nSk1fx3xfOQ0aNJawo1_500.jpg">https://26.media.tumblr.com/Jjkybd3nSk1fx3xfOQ0aNJawo1_500.jpg</a><br>D&#x2F;TAG—-&gt;得到第 1 个图片链接：: <a target="_blank" rel="noopener" href="https://24.media.tumblr.com/tumblr_lhc5exQHCr1qgnva2o1_500.jpg">https://24.media.tumblr.com/tumblr_lhc5exQHCr1qgnva2o1_500.jpg</a><br>D&#x2F;TAG—-&gt;得到第 2 个图片链接：: <a target="_blank" rel="noopener" href="https://24.media.tumblr.com/tumblr_m46gb0Yz7l1qz6rxuo1_500.jpg">https://24.media.tumblr.com/tumblr_m46gb0Yz7l1qz6rxuo1_500.jpg</a><br>D&#x2F;TAG—-&gt;得到第 3 个图片链接：: <a target="_blank" rel="noopener" href="https://24.media.tumblr.com/tumblr_m5b8gqPHsN1qenqklo1_r1_500.jpg">https://24.media.tumblr.com/tumblr_m5b8gqPHsN1qenqklo1_r1_500.jpg</a><br>D&#x2F;TAG—-&gt;重置了第3 个图片链接：:<br>D&#x2F;TAG—-&gt;得到第 4 个图片链接：: <a target="_blank" rel="noopener" href="https://25.media.tumblr.com/tumblr_m6fj9jObek1qzbxjgo1_500.jpg">https://25.media.tumblr.com/tumblr_m6fj9jObek1qzbxjgo1_500.jpg</a><br>D&#x2F;TAG—-&gt;重置了第4 个图片链接：:<br><a target="_blank" rel="noopener" href="https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/L6X35YZPT.jpg">https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/L6X35YZPT.jpg</a><br>D&#x2F;TAG—-&gt;得到第 5 个图片链接：: <a target="_blank" rel="noopener" href="https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/L6X35YZPT.jpg">https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/L6X35YZPT.jpg</a><br>D&#x2F;TAG—-&gt;得到第 6 个图片链接：: <a target="_blank" rel="noopener" href="https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/R1_Oy4xPh.jpg">https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/R1_Oy4xPh.jpg</a><br>D&#x2F;TAG—-&gt;得到第 7 个图片链接：: <a target="_blank" rel="noopener" href="https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/HJiePCL8P.jpg">https://s3.us-west-2.amazonaws.com/cdn2.thecatapi.com/images/HJiePCL8P.jpg</a><br>D&#x2F;TAG: 进入onCreateViewHolder<br>D&#x2F;Tag: 执行了onBindViewHolder<br>&#x2F;&#x2F;…<br>D&#x2F;Tag: 执行了onBindViewHolder<br>I&#x2F;chatty: uid&#x3D;10161(com.demo.catws) identical 3 lines<br>D&#x2F;AndroidRuntime: Shutting down VM<br>E&#x2F;AndroidRuntime: FATAL EXCEPTION: main<br>Process: com.demo.catws, PID: 24957<br>java.lang.IndexOutOfBoundsException: Inconsistency detected. Invalid view holder adapter positionMyViewHolder{a05aa7 position&#x3D;12 id&#x3D;-1, oldPos&#x3D;7, pLpos:7 scrap [attachedScrap] tmpDetached not recyclable(1) no parent} androidx.recyclerview.widget.RecyclerView{3aa67fe VFED….. ……ID -72,246-1155,2109 #7f070083 app:id&#x2F;recycle}</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><br>  <br><br>### 业务代码<br><br>```kotlin<br><span class="hljs-comment">//点击函数</span><br><span class="hljs-keyword">fun</span> look<span class="hljs-constructor">Cat(<span class="hljs-params">v</span>:View)</span> = <span class="hljs-constructor">Thread()</span>&#123;<br>        <span class="hljs-keyword">val</span> url=<span class="hljs-string">&quot;https://api.thecatapi.com/api/images/get?format=xml&amp;size=med&amp;results_per_page=8&quot;</span><br>        <span class="hljs-keyword">val</span> xmlString = <span class="hljs-constructor">URL(<span class="hljs-params">url</span>)</span>.read<span class="hljs-constructor">Text()</span><br>        <span class="hljs-keyword">val</span> parserFactory: XmlPullParserFactory = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">XmlPullParserFactory</span>.</span></span><span class="hljs-keyword">new</span><span class="hljs-constructor">Instance()</span><br>        <span class="hljs-keyword">val</span> parser: XmlPullParser = parserFactory.<span class="hljs-keyword">new</span><span class="hljs-constructor">PullParser()</span><br>        parser.set<span class="hljs-constructor">Feature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, <span class="hljs-params">true</span>)</span><br>        parser.set<span class="hljs-constructor">Input(StringReader(<span class="hljs-params">xmlString</span>)</span>)<br>        var tag: String?<br>        var text = <span class="hljs-string">&quot;&quot;</span><br>        var count=<span class="hljs-number">0</span>;<br>        data.clear<span class="hljs-literal">()</span><br>        var <span class="hljs-built_in">bytes</span>:ByteArray?<br>        var event = parser.eventType<br>        <span class="hljs-keyword">while</span> (event != XmlPullParser.END_DOCUMENT) &#123;<br>            tag = parser.name<br>            <span class="hljs-keyword">when</span> (event) &#123;<br>                XmlPullParser.TEXT -&gt; text = parser.text<br>                XmlPullParser.END_TAG -&gt; <span class="hljs-keyword">when</span> (tag) &#123;<br>                    <span class="hljs-string">&quot;url&quot;</span> -&gt; &#123;<br>                        <span class="hljs-comment">//把资源链接压进资源数组</span><br>                        <span class="hljs-comment">//图片链接处理</span><br>                        <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Log</span>.</span></span>d(<span class="hljs-string">&quot;TAG----&gt;得到第 $&#123;data.size-1&#125; 个图片链接：&quot;</span>, text)<br>                        data.add(text)<br>                        runOnUiThread &#123;<br><br>                            <span class="hljs-comment">//myadaper?.notifyItemInserted(data.size-1)</span><br>                            <span class="hljs-comment">//此处使用提醒插入报错，使用提醒改变正常运行</span><br>                            myadaper!!.notify<span class="hljs-constructor">ItemChanged(<span class="hljs-params">data</span>.<span class="hljs-params">size</span>-1)</span><br>                            <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Log</span>.</span></span>d(<span class="hljs-string">&quot;TAG----&gt;重置了 $&#123;data.size-1&#125; 个图片链接：&quot;</span>, text)<br><br>                        &#125;<br>                        <br>                      <br>                    &#125;<br>                &#125;<br>            &#125;<br>            event = parser.next<span class="hljs-literal">()</span><br>        &#125;<br><br>    &#125;.start<span class="hljs-literal">()</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-comment">//图片加载函数</span><br><span class="hljs-keyword">override</span> <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">onBindViewHolder</span><span class="hljs-params">(holder: <span class="hljs-type">MyViewHolder</span>, position: <span class="hljs-type">Int</span>)</span></span> &#123;<br>        Log.d(<span class="hljs-string">&quot;Tag&quot;</span>,<span class="hljs-string">&quot;执行了onBindViewHolder&quot;</span>)<br><br>        Glide.with(myContext).load(items[position]).into(holder.imgview)<br><br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="1-0版本：解析获取xml中的一个图片链接并显示"><a href="#1-0版本：解析获取xml中的一个图片链接并显示" class="headerlink" title="1.0版本：解析获取xml中的一个图片链接并显示"></a>1.0版本：解析获取xml中的一个图片链接并显示</h2><blockquote>
+<p>未使用布局及图片加载库</p>
+</blockquote>
+<h3 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h3><blockquote>
+<ul>
+<li>点击按钮向api接口请求xml数据</li>
+<li>当从xml中解析出图片url地址后左上角显示：<br>“猫猫图正在向您走来”</li>
+<li>从url中读取到图片后，显示图片链接与图片到ui上</li>
+</ul>
+</blockquote>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/20201006/20201124200225.png" srcset="/img/loading.gif" lazyload alt="image-20201124200224064"></p>
+<h3 id="业务代码"><a href="#业务代码" class="headerlink" title="业务代码"></a>业务代码</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">lookCat</span><span class="hljs-params">(v:<span class="hljs-type">View</span>)</span></span> = Thread()&#123;<br>        <span class="hljs-keyword">val</span> url=<span class="hljs-string">&quot;https://api.thecatapi.com/api/images/get?format=xml&amp;size=med&amp;results_per_page=1&quot;</span><br>        <span class="hljs-comment">//读取并格式化返回的xml</span><br>        <span class="hljs-keyword">val</span> xmlString = URL(url).readText()<br>        <span class="hljs-keyword">val</span> parserFactory: XmlPullParserFactory = XmlPullParserFactory.newInstance()<br>        <span class="hljs-keyword">val</span> parser: XmlPullParser = parserFactory.newPullParser()<br>        parser.setFeature(XmlPullParser.FEATURE_PROCESS_NAMESPACES, <span class="hljs-literal">true</span>)<br>        parser.setInput(StringReader(xmlString))<br>        <span class="hljs-keyword">var</span> tag: String?<br>        <span class="hljs-keyword">var</span> text = <span class="hljs-string">&quot;&quot;</span><br>        <span class="hljs-keyword">var</span> bytes:ByteArray?<br>        <span class="hljs-keyword">var</span> event = parser.eventType<br>        <span class="hljs-comment">//开始解析返回的xml，此处因为url设置results_per_page=1，返回的xml只有一个image节点即一张图片链接</span><br>        <span class="hljs-keyword">while</span> (event != XmlPullParser.END_DOCUMENT) &#123;<br>            tag = parser.name<br>            <span class="hljs-keyword">when</span> (event) &#123;<br>                XmlPullParser.TEXT -&gt; text = parser.text<br>                XmlPullParser.END_TAG -&gt; <span class="hljs-keyword">when</span> (tag) &#123;<br>                    <span class="hljs-string">&quot;url&quot;</span> -&gt;&#123;<br>                        imgurl=text<br>                        timestart.text=<span class="hljs-string">&quot;猫猫图正在向您走来！&quot;</span><br>                        Log.d(<span class="hljs-string">&quot;MainActivity&quot;</span>,<span class="hljs-string">&quot;已读取完图片链接 :<span class="hljs-variable">$imgurl</span> &quot;</span>)<br>                        bytes = URL(text).readBytes()<br>                        runOnUiThread&#123;<br>                            <span class="hljs-keyword">var</span> text=imgurl<br>                            textView.text=text<br>                            <span class="hljs-keyword">val</span> bitmap = BitmapFactory.decodeByteArray(bytes, <span class="hljs-number">0</span>, bytes.size)<br>                            Log.d(<span class="hljs-string">&quot;MainActivity&quot;</span>,<span class="hljs-string">&quot;已读取完图片字节文件：<span class="hljs-variable">$imgurl</span> &quot;</span>)<br>                            imageView.setImageBitmap(bitmap)<br>                            imageView.isEnabled = <span class="hljs-literal">true</span><br>                        &#125;<br>                    &#125;<br>                &#125;<br>            &#125;<br>            <span class="hljs-comment">//当xml存在多个子节点时生效，此时暂不生效</span><br>            event = parser.next()<br>        &#125;<br><br>    &#125;.start()<br><br>&#125;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/demo/" class="category-chain-item">demo</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/demo/" class="print-no-link">#demo</a>
+      
+        <a href="/tags/java/" class="print-no-link">#java</a>
+      
+        <a href="/tags/kotlin/" class="print-no-link">#kotlin</a>
+      
+        <a href="/tags/Android/" class="print-no-link">#Android</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>随机获取猫图APP</div>
+      <div>https://darksheep404.github.io/2020/11/24/获取随机猫图APP/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>darksheep</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年11月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/11/25/%E4%B8%80%E4%BA%9B%E6%8B%9C%E8%AF%BB%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%87%E7%AB%A0or%E5%8D%9A%E5%AE%A2/" title="文章&amp;博客拜读学习">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">文章&amp;博客拜读学习</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/11/19/From%20Java%20To%20Kotlin/" title="分享:From Java To Kotlin">
+                        <span class="hidden-mobile">分享:From Java To Kotlin</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a  target="_blank" rel="noopener" href="https://www.travellings.cn/go.html" title="Travelling"  style="font-size:20px; color:orange">Travelling<svg style ="height:20px;width:20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ri icon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="ri:train-line"><path fill="orange" d="m17.2 20l1.8 1.5v.5H5v-.5L6.8 20H5a2 2 0 0 1-2-2V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v11a2 2 0 0 1-2 2zM7 5a2 2 0 0 0-2 2v11h14V7a2 2 0 0 0-2-2zm5 12a2 2 0 1 1 0-4a2 2 0 0 1 0 4M6 7h12v4H6z"></path></svg></a> <br><a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"> <br><img src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云" style="vertical-align: middle; width: 20px; height: 20px;"> 本网站由又拍云提供 CDN 加速 </a> <br><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      粤ICP备2020102011号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

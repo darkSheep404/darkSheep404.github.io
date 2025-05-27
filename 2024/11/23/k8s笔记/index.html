@@ -1,0 +1,793 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=dark>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/logo.png">
+  <link rel="icon" href="/images/logo.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="darksheep">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="K8S的对象 离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob一些字段activeDeadlineSeconds，设置 Pod 运行的超时时间。 backoffLimit，设置 Pod 的失败重试次数。 completions，Job 完成需要运行多少个 Pod，默认是 1 个。 parallelism，它与 completions 相关，表示允许并发运行的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s笔记">
+<meta property="og:url" content="https://darksheep404.github.io/2024/11/23/k8s%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="战忽包子の小窝">
+<meta property="og:description" content="K8S的对象 离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob一些字段activeDeadlineSeconds，设置 Pod 运行的超时时间。 backoffLimit，设置 Pod 的失败重试次数。 completions，Job 完成需要运行多少个 Pod，默认是 1 个。 parallelism，它与 completions 相关，表示允许并发运行的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213417394.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213437099.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213456098.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213544895.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/b5/cf/b5a7003788cb6f2b1c5c4f6873a8b5cf.jpg?wh=1920x1298">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214214049.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/9b780905a824d2103d4ayyc79267ae28.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/yy352c661ae37dd116dd12c61932b43c.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/0663d692b33c1dee5b08e486d271b69d.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214405793.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214605773.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/c1/1c/c1dee411aa02f4ff2b8caaf0bd627a1c.jpg?wh=1920x1173">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/71/88/71b485401dca6946fe4788fa97e3fd88.png?wh=1268x414">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/1a/0f/1a06987c87f3db948b591883a81bac0f.jpg?wh=4000x2946">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/0f/64/0f74ae3a71a6a661376698e481903d64.jpg?wh=1920x1322">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/e6/55/e6ce31b027ba2a8d94cdc553a2c97255.png?wh=1288x834">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/bb7a911e10c103fb839e01438e184914.jpg">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220007395.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220049973.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220049973.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220129212.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221149186.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/64/d9/64fde55dd2eab68f9968ff34218646d9.jpg?wh=1920x1200">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221515092.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221701080.png">
+<meta property="og:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221605863.png">
+<meta property="article:published_time" content="2024-11-23T15:20:18.000Z">
+<meta property="article:modified_time" content="2025-05-27T11:20:30.779Z">
+<meta property="article:author" content="darksheep">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213417394.png">
+  
+  
+  
+  <title>k8s笔记 - 战忽包子の小窝</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"darksheep404.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"><link rel="alternate" href="/atom.xml" title="战忽包子の小窝" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>战忽包子の小窝</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/pixel-vault/" target="_self">
+                <i class="iconfont codepen-fill"></i>
+                <span>地球Online装备库</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" target="_self" href="javascript:;" role="button"
+                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/about/" target="_self">
+                    <i class="iconfont icon-user-fill"></i>
+                    <span>关于</span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="https://darksheep.xyz/demo-2025/2024/" target="_self">
+                    <i class="iconfont icon-twitch-fill"></i>
+                    <span>2024 Annual Summary </span>
+                  </a>
+                
+                  
+                  
+                  
+                  <a class="dropdown-item" href="/sql/" target="_self">
+                    <i class="iconfont code"></i>
+                    <span>在线SQL 编辑器</span>
+                  </a>
+                
+              </div>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.travellings.cn/go.html" target="_self">
+                <i class="iconfont icon-telegram-fill"></i>
+                <span>Travelling</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="k8s笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-23 15:20" pubdate>
+          2024年11月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">k8s笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213417394.png" srcset="/img/loading.gif" lazyload alt="image-20230521213417394"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213437099.png" srcset="/img/loading.gif" lazyload alt="image-20230521213437099"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213456098.png" srcset="/img/loading.gif" lazyload alt="image-20230521213456098"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521213544895.png" srcset="/img/loading.gif" lazyload alt="image-20230521213544895"></p>
+<h2 id="K8S的对象"><a href="#K8S的对象" class="headerlink" title="K8S的对象"></a>K8S的对象</h2><p><img src="https://static001.geekbang.org/resource/image/b5/cf/b5a7003788cb6f2b1c5c4f6873a8b5cf.jpg?wh=1920x1298" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="离线业务-gt-临时任务-gt-只跑一次-job-定时任务-cronjob"><a href="#离线业务-gt-临时任务-gt-只跑一次-job-定时任务-cronjob" class="headerlink" title="离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob"></a>离线业务-&gt;临时任务-&gt;只跑一次:job,定时任务:cronjob</h3><p><strong>一些字段</strong><br>activeDeadlineSeconds，设置 Pod 运行的超时时间。</p>
+<p>backoffLimit，设置 Pod 的失败重试次数。</p>
+<p>completions，Job 完成需要运行多少个 Pod，默认是 1 个。</p>
+<p>parallelism，它与 completions 相关，表示允许并发运行的 Pod 数量，避免过多占用资源。</p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214214049.png" srcset="/img/loading.gif" lazyload alt="image-20230521214214049"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/9b780905a824d2103d4ayyc79267ae28.jpg" srcset="/img/loading.gif" lazyload alt="img"><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/yy352c661ae37dd116dd12c61932b43c.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="ConfigMap-x2F-Secret-明文-x2F-秘文配置信息"><a href="#ConfigMap-x2F-Secret-明文-x2F-秘文配置信息" class="headerlink" title="ConfigMap&#x2F;Secret:明文&#x2F;秘文配置信息"></a>ConfigMap&#x2F;Secret:明文&#x2F;秘文配置信息</h3><blockquote>
+<p>不是容器 不需要spec字段说明允许规格</p>
+<p>containers”里有一个“env”，它定义了 Pod 里容器能够看到的环境变量</p>
+<p>可以使用了简单的“value”，把环境变量的值写“死”在了 YAML 里</p>
+<p>实际上它还可以使用另一个“valueFrom”字段，从 ConfigMap 或者 Secret 对象里获取值</p>
+<ul>
+<li>name”字段是 API 对象的名字，而不是 Key-Value 的名字。</li>
+</ul>
+</blockquote>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/0663d692b33c1dee5b08e486d271b69d.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214405793.png" srcset="/img/loading.gif" lazyload alt="image-20230521214405793"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521214605773.png" srcset="/img/loading.gif" lazyload alt="image-20230521214605773"></p>
+<h3 id="Deployment-管理pod-gt-pod管理container"><a href="#Deployment-管理pod-gt-pod管理container" class="headerlink" title="Deployment:管理pod-&gt;pod管理container"></a>Deployment:管理pod-&gt;pod管理container</h3><h4 id="DaemonSet-spec-里没有-replicas-字段-在每个节点上只创建出一个-Pod-实例"><a href="#DaemonSet-spec-里没有-replicas-字段-在每个节点上只创建出一个-Pod-实例" class="headerlink" title="DaemonSet (spec 里没有 replicas 字段)在每个节点上只创建出一个 Pod 实例"></a>DaemonSet (spec 里没有 replicas 字段)在<strong>每个节点上只创建出一个 Pod 实例</strong></h4><p>如需要运行在master node上 需要设置污点&#x2F;容忍度 taint:tolerations</p>
+<p><img src="https://static001.geekbang.org/resource/image/c1/1c/c1dee411aa02f4ff2b8caaf0bd627a1c.jpg?wh=1920x1173" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="StatefulSet"><a href="#StatefulSet" class="headerlink" title="StatefulSet"></a>StatefulSet</h4><blockquote>
+<p>专门部署“有状态应用”的 API 对象 StatefulSet，它与 Deployment 非常相似，区别是由它管理的 Pod 会有固定的名字、启动顺序和网络标识，这些特性对于在集群里实施有主从、主备等关系的应用非常重要</p>
+</blockquote>
+<p><img src="https://static001.geekbang.org/resource/image/71/88/71b485401dca6946fe4788fa97e3fd88.png?wh=1268x414" srcset="/img/loading.gif" lazyload alt="img"></p>
+<blockquote>
+<p><strong>所管理的 Pod 不再是随机的名字了，而是有了顺序编号</strong>，从 0 开始分别被命名为 redis-sts-0、redis-sts-1，Kubernetes 也会按照这个顺序依次创建（0 号比 1 号的 AGE 要长一点），这就解决了“<strong>有状态应用”的第一个问题：启动顺序</strong></p>
+<p><strong>有了这个唯一的名字，应用就可以自行决定依赖关系了</strong>，</p>
+<p>如以 Redis 为例子里，就可以让先启动的 0 号 Pod 是主实例，后启动的 1 号 Pod 是从实例</p>
+<p>Service 自己会有一个域名，格式是“对象名. 名字空间”，当我们把 Service 对象应用于 StatefulSet 的时候,<strong>会为 Pod 再多创建出一个新的域名，格式是“Pod 名. 服务名. 名字空间.svc.cluster.local”&#x2F;“Pod 名. 服务名</strong>”</p>
+<p>外部的客户端只要知道了 StatefulSet 对象，就<strong>可以用固定的编号去访问某个具体的Pod了，虽然 Pod 的 IP 地址可能会变，但这个有编号的域名由 Service 对象维护，是稳定不变的</strong></p>
+</blockquote>
+<p><img src="https://static001.geekbang.org/resource/image/1a/0f/1a06987c87f3db948b591883a81bac0f.jpg?wh=4000x2946" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h3 id="Service与Ingress"><a href="#Service与Ingress" class="headerlink" title="Service与Ingress"></a>Service与Ingress</h3><blockquote>
+<p>不再关心 Pod 的具体地址，只要访问 Service 的固定 IP 地址</p>
+</blockquote>
+<p><img src="https://static001.geekbang.org/resource/image/0f/64/0f74ae3a71a6a661376698e481903d64.jpg?wh=1920x1322" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="ingress-集群内外边界上的入口"><a href="#ingress-集群内外边界上的入口" class="headerlink" title="ingress:集群内外边界上的入口"></a>ingress:集群内外边界上的入口</h4><blockquote>
+<p>Ingress 的路由规则是 HTTP 协议，所以就不能用 IP 地址的方式访问，必须要用域名、URI</p>
+</blockquote>
+<p><img src="https://static001.geekbang.org/resource/image/e6/55/e6ce31b027ba2a8d94cdc553a2c97255.png?wh=1288x834" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="四者联系"><a href="#四者联系" class="headerlink" title="四者联系"></a>四者联系</h4><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/bb7a911e10c103fb839e01438e184914.jpg" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h2 id="几种更新策略"><a href="#几种更新策略" class="headerlink" title="几种更新策略"></a>几种更新策略</h2><blockquote>
+<p>普通部署 全部停掉 然后全部启动新的</p>
+<p>用时最短</p>
+</blockquote>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220007395.png" srcset="/img/loading.gif" lazyload alt="image-20230521220007395"></p>
+<h3 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h3><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220049973.png" srcset="/img/loading.gif" lazyload alt="image-20230521220049973"></p>
+<h3 id="蓝绿部署"><a href="#蓝绿部署" class="headerlink" title="蓝绿部署"></a>蓝绿部署</h3><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220049973.png" srcset="/img/loading.gif" lazyload></p>
+<p>金丝雀发布</p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521220129212.png" srcset="/img/loading.gif" lazyload alt="image-20230521220129212"></p>
+<h2 id="应用更健康"><a href="#应用更健康" class="headerlink" title="应用更健康"></a>应用更健康</h2><blockquote>
+<p>创建容器有三大隔离技术：namespace、cgroup、chroot。其中的 namespace 实现了独立的进程空间，chroot 实现了独立的文件系统,cgroup 的作用是管控 CPU、内存，保证容器不会无节制地占用基础资源，进而影响到系统里的其他应用</p>
+</blockquote>
+<h3 id="cgroup"><a href="#cgroup" class="headerlink" title="cgroup"></a>cgroup</h3><p>CPU、内存与存储卷,在 Pod 容器的描述部分添加一个新字段 resources 进行申请，它就相当于申请资源的 Claim</p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221149186.png" srcset="/img/loading.gif" lazyload alt="image-20230521221149186"></p>
+<blockquote>
+<p>Kubernetes 里 CPU 的最小使用单位是 0.001，为了方便表示用了一个特别的单位 m，也就是“milli”“毫”的意思，比如说 500m 就相当于 0.5</p>
+</blockquote>
+<h3 id="容器状态探针-Probe"><a href="#容器状态探针-Probe" class="headerlink" title="容器状态探针(Probe)"></a>容器状态探针(Probe)</h3><blockquote>
+<p> 除了保证崩溃重启，还必须要能够探查到 Pod 的内部运行状态，定时给应用做“体检”，让应用时刻保持“健康”，能够满负荷稳定工作</p>
+</blockquote>
+<ul>
+<li><p>Startup，启动探针，用来检查应用是否已经启动成功，适合那些有大量初始化工作要做，启动很慢的应用。</p>
+</li>
+<li><p>Liveness，存活探针，用来检查应用是否正常运行，是否存在死锁、死循环。</p>
+</li>
+<li><p>Readiness，就绪探针，用来检查应用是否可以接收流量，是否能够对外提供服务</p>
+</li>
+</ul>
+<p><img src="https://static001.geekbang.org/resource/image/64/d9/64fde55dd2eab68f9968ff34218646d9.jpg?wh=1920x1200" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h4 id="探测方式"><a href="#探测方式" class="headerlink" title="探测方式"></a>探测方式</h4><p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221515092.png" srcset="/img/loading.gif" lazyload alt="image-20230521221515092"></p>
+<blockquote>
+<p>启用了 80 端口，然后用 location 指令定义了 HTTP 路径 &#x2F;ready，它作为对外暴露的“检查口”，用来检测就绪状态，返回简单的 200 状态码和一个字符串表示工作正常</p>
+</blockquote>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221701080.png" srcset="/img/loading.gif" lazyload alt="image-20230521221701080"></p>
+<p><img src="https://sheepnote.oss-cn-shenzhen.aliyuncs.com/ita/image-20230521221605863.png" srcset="/img/loading.gif" lazyload alt="image-20230521221605863"></p>
+<h3 id="namespace-通过不同命名空间实现资源隔离"><a href="#namespace-通过不同命名空间实现资源隔离" class="headerlink" title="namespace:通过不同命名空间实现资源隔离"></a>namespace:通过不同命名空间实现资源隔离</h3><blockquote>
+<p>可以像管理容器一样，给名字空间设定配额，把整个集群的计算资源分割成不同的大小，按需分配给团队或项目使用</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>k8s笔记</div>
+      <div>https://darksheep404.github.io/2024/11/23/k8s笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>darksheep</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年11月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/01/2024/" title="2024年终总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">2024年终总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/23/%E8%B6%8A%E5%8D%97%E6%97%85%E6%B8%B8/" title="越南旅游">
+                        <span class="hidden-mobile">越南旅游</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a  target="_blank" rel="noopener" href="https://www.travellings.cn/go.html" title="Travelling"  style="font-size:20px; color:orange">Travelling<svg style ="height:20px;width:20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ri icon" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24" data-icon="ri:train-line"><path fill="orange" d="m17.2 20l1.8 1.5v.5H5v-.5L6.8 20H5a2 2 0 0 1-2-2V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v11a2 2 0 0 1-2 2zM7 5a2 2 0 0 0-2 2v11h14V7a2 2 0 0 0-2-2zm5 12a2 2 0 1 1 0-4a2 2 0 0 1 0 4M6 7h12v4H6z"></path></svg></a> <br><a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral" target="_blank"> <br><img src="https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/logo/upyun-logo.png" srcset="/img/loading.gif" lazyload alt="又拍云" style="vertical-align: middle; width: 20px; height: 20px;"> 本网站由又拍云提供 CDN 加速 </a> <br><a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+    <!-- 备案信息 ICP for China -->
+    <div class="beian">
+  <span>
+    <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow noopener">
+      粤ICP备2020102011号
+    </a>
+  </span>
+  
+</div>
+
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
