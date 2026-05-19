@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>❤ 爱心寄语</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1e1e2e;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    }
+
+    /* 仿系统弹窗卡片 */
+    .popup {
+      position: fixed;
+      width: var(--popup-w, 148px);
+      min-height: 60px;
+      border-radius: 8px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.35);
+      opacity: 0;
+      transform: scale(0.4);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .popup.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .popup.fade-out {
+      opacity: 0;
+      transform: scale(0.6);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .popup-titlebar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 5px 8px;
+      background: rgba(255,255,255,0.18);
+      border-radius: 8px 8px 0 0;
+      backdrop-filter: blur(2px);
+    }
+
+    .popup-titlebar .dots {
+      display: flex;
+      gap: 4px;
+    }
+
+    .popup-titlebar .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.45);
+    }
+
+    .popup-titlebar .icons {
+      font-size: 10px;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 3px;
+    }
+
+    .popup-body {
+      padding: clamp(6px, 1.5vw, 10px) clamp(6px, 2vw, 12px) clamp(8px, 2vw, 12px);
+      font-size: clamp(11px, 3.8vw, 15px);
+      font-weight: bold;
+      color: #333;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    /* 彩色背景 */
+    .color-pink   { background: #ffc2d4; }
+    .color-green  { background: #b7f5c4; }
+    .color-blue   { background: #b3dcf7; }
+    .color-yellow { background: #fdf3b0; }
+    .color-lilac  { background: #dbbcf6; }
+  </style>
+</head>
+<body>
+
+<script>
+// ─────────────────────────────────────────────
+//  ✏️  各版本寄语文案（通过 URL ?type= 切换）
+//  可用值：friend（默认）| crush | lover
+// ─────────────────────────────────────────────
+const VERSIONS = {
+  // 好朋友版：?type=friend  或  不带参数
+  friend: {
+    title: '❤ 爱心寄语',
+    messages: [
+      '好好吃饭',
+      '天凉了多穿衣服',
+      '多喝水呀',
+      '好好爱自己',
+      '别熬夜',
+      '我想你了',
+      '保持好心情',
+      '顺顺利利',
+      '早点休息',
+      '开心每一天',
+      '注意身体',
+      '万事顺意',
+    ],
+  },
+
+  // 暗恋版：?type=crush
+  crush: {
+    title: '💗 小小心意',
+    messages: [
+      '偷偷喜欢你',
+      '你笑起来真好看',
+      '见到你心跳加速',
+      '你出现了就是晴天',
+      '想牵你的手',
+      '能认识你真好',
+      '有你的地方才是家',
+      '你是我的小秘密',
+      '好想告诉你',
+      '你知道吗我好喜欢你',
+      '你是我最美的心动',
+      '鼓起勇气',
+    ],
+  },
+
+  // 恋人版：?type=lover
+  lover: {
+    title: '🌹 只对你说',
+    messages: [
+      '我爱你',
+      '想你了',
+      '你是我的宝贝',
+      '天凉了多穿衣服',
+      '好好吃饭',
+      '你是我最好的选择',
+      '陪你到老',
+      '多喝水呀',
+      '别熬夜',
+      '你笑我才开心',
+      '以后的路一起走',
+      '你就是我的答案',
+    ],
+  },
+};
+
+// 读取 URL 参数，决定当前版本
+// 支持 crush / cursh（容错拼写）
+const rawType = new URLSearchParams(location.search).get('type') || 'friend';
+const urlType = rawType === 'cursh' ? 'crush' : rawType;
+const currentVersion = VERSIONS[urlType] || VERSIONS.friend;
+const MESSAGES = currentVersion.messages;
+document.title = currentVersion.title;
+// ─────────────────────────────────────────────
+
+const COLORS = ['color-pink', 'color-green', 'color-blue', 'color-yellow', 'color-lilac'];
+
+// ── 根据屏幕尺寸自适应参数 ──────────────────────
+const sw0 = window.innerWidth;
+const sh0 = window.innerHeight;
+const isMobile = Math.min(sw0, sh0) < 600;
+
+// 阶段一：爱心上的弹窗数量
+const HEART_COUNT = isMobile ? 65 : 80;
+// 阶段三：额外铺屏弹窗数量
+const FLOOD_COUNT = isMobile ? 70 : 120;
+// 弹窗宽度：移动端更小，确保心形轮廓清晰可见
+const POPUP_W = isMobile ? Math.round(sw0 * 0.22) : 148;
+// 弹窗生成间隔 ms
+const HEART_INTERVAL = isMobile ? 35 : 40;
+const FLOOD_INTERVAL = isMobile ? 22 : 25;
+// 展示阶段时长 ms
+const SHOW_DURATION = 3000;
+// 淡出后重播延迟 ms
+const REPLAY_DELAY = 800;
+
+let allPopups = [];
+
+// ── 工具函数 ──────────────────────────────────
+
+function rand(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function randInt(min, max) {
+  return Math.floor(rand(min, max));
+}
+
+function pickMsg() {
+  return MESSAGES[randInt(0, MESSAGES.length)];
+}
+
+function pickColor() {
+  return COLORS[randInt(0, COLORS.length)];
+}
+
+function createPopup(x, y) {
+  const el = document.createElement('div');
+  el.className = `popup ${pickColor()}`;
+  el.style.left = x + 'px';
+  el.style.top  = y + 'px';
+
+  el.innerHTML = `
+    <div class="popup-titlebar">
+      <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="icons">─ □ ×</div>
+    </div>
+    <div class="popup-body">${pickMsg()}</div>
+  `;
+
+  document.body.appendChild(el);
+  // 触发过渡动画
+  requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('visible')));
+  allPopups.push(el);
+  return el;
+}
+
+// ── 爱心坐标生成 ─────────────────────────────
+
+function heartPoints(n) {
+  const sw = window.innerWidth;
+  const sh = window.innerHeight;
+  const cx = sw / 2;
+  const cy = sh / 2;
+
+  // 缩放系数：同时约束宽（32 单位）和高（30 单位），取最小值避免超出屏幕
+  // 目标：宽占屏幕 85%，高占屏幕 80%，哪个轴先撑满就以哪个为准
+  const scale = Math.min(sw * 0.85 / 32, sh * 0.80 / 30);
+  // 移动端上竖屏空间多，稍微上移让心形视觉更居中
+  const yBias = isMobile ? -sh * 0.04 : 0;
+  const jitter = isMobile ? 4 : 8;
+  const halfH = 30; // 弹窗高度约一半
+
+  const points = [];
+  for (let i = 0; i < n; i++) {
+    const t = (i / n) * 2 * Math.PI;
+    const hx = 16 * Math.pow(Math.sin(t), 3);
+    const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+    points.push({
+      x: cx + hx * scale - POPUP_W / 2 + rand(-jitter, jitter),
+      y: cy + yBias + hy * scale - halfH + rand(-jitter, jitter),
+    });
+  }
+  return points;
+}
+
+// ── 主动画流程 ────────────────────────────────
+
+function clearAll(cb) {
+  allPopups.forEach(el => el.classList.add('fade-out'));
+  setTimeout(() => {
+    allPopups.forEach(el => el.remove());
+    allPopups = [];
+    cb && cb();
+  }, 500);
+}
+
+function phase1(onDone) {
+  const points = heartPoints(HEART_COUNT);
+  let i = 0;
+  const timer = setInterval(() => {
+    if (i >= points.length) {
+      clearInterval(timer);
+      onDone();
+      return;
+    }
+    const p = points[i++];
+    createPopup(p.x, p.y);
+  }, HEART_INTERVAL);
+}
+
+function phase2(onDone) {
+  setTimeout(onDone, SHOW_DURATION);
+}
+
+function phase3(onDone) {
+  const sw = window.innerWidth;
+  const sh = window.innerHeight;
+  let i = 0;
+  const timer = setInterval(() => {
+    if (i >= FLOOD_COUNT) {
+      clearInterval(timer);
+      // 再等一小会儿展示满屏效果
+      setTimeout(onDone, 1500);
+      return;
+    }
+    i++;
+    createPopup(
+      rand(0, sw - POPUP_W),
+      rand(0, sh - 70)
+    );
+  }, FLOOD_INTERVAL);
+}
+
+function runAnimation() {
+  phase1(() => {
+    phase2(() => {
+      phase3(() => {
+        clearAll(() => {
+          setTimeout(runAnimation, REPLAY_DELAY);
+        });
+      });
+    });
+  });
+}
+
+// 启动：写入 CSS 变量供弹窗宽度使用
+document.documentElement.style.setProperty('--popup-w', POPUP_W + 'px');
+runAnimation();
+</script>
+</body>
+</html>
